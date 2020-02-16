@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BLShop.WEB.ModelsDTO.ForGood
+namespace FinalTaskShop.ViewModels.ForGood
 {
-    public class TransportationDTO
+    public class TransportationViewModel
     {
         public int Id { get; set; }
 
@@ -12,7 +12,5 @@ namespace BLShop.WEB.ModelsDTO.ForGood
         public DateTime DateOfArrival { get; set; }
 
         public decimal CostOfDelivery { get; set; }
-
-        public int GoodId { get; set; }
     }
 }

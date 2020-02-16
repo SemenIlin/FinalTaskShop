@@ -10,11 +10,22 @@ namespace BLShop.WEB.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        IEmployeeUnitOfWork Database { get; set; }
+        private IRepository<Employee> Employees { get; set; }
+        private IRepository<BonusOrFine> BonusOfFines { get; set; }
+        private IRepository<Position> Positions { get; set; }
+        private IRepository<SickLeave> SickLeaves { get; set; }
 
-        public EmployeeService(IEmployeeUnitOfWork uow)
+        public EmployeeService(
+            IRepository<Employee> employees,
+            IRepository<BonusOrFine> bonusOfFines,
+            IRepository<Position> positions,
+            IRepository<SickLeave> sickLeaves
+            )
         {
-            Database = uow;
+            Employees = employees;
+            BonusOfFines = bonusOfFines;
+            Positions = positions;
+            SickLeaves = sickLeaves;
         }
 
         public void AddBonusOrFine(BonusOrFineDTO bonusOrFine)
@@ -27,7 +38,7 @@ namespace BLShop.WEB.Services
                 EmployeeId = bonusOrFine.EmployeeId
             };
 
-            Database.BonusOfFines.Create(bonus);
+            BonusOfFines.Create(bonus);
         }
 
         public void AddEmployee(EmployeeDTO employeeDTO)
@@ -42,7 +53,7 @@ namespace BLShop.WEB.Services
                 PositionId = employeeDTO.PositionId
             };
 
-            Database.Employees.Create(employee);
+            Employees.Create(employee);
         }
 
         public void AddSickLeave(SickLeaveDTO sickLeaveDTO)
@@ -56,7 +67,7 @@ namespace BLShop.WEB.Services
                 EmployeeId = sickLeaveDTO.EmployeeId
             };
 
-            Database.SickLeaves.Create(sickLeave);
+            SickLeaves.Create(sickLeave);
         }
 
         public void CreatePosition(PositionDTO positionDTO)
@@ -67,14 +78,14 @@ namespace BLShop.WEB.Services
                 MinSalary = positionDTO.MinSalary,
             };
 
-            Database.Positions.Create(position);
+            Positions.Create(position);
         }
 
         public EmployeeDTO GetEmployee(int? id)
         {
             if (id != null)
             {
-                var employee = Database.Employees.Get(id.Value);
+                var employee = Employees.Get(id.Value);
                 if(employee == null)
                 {
                     throw new Exception("Сотрудник не найден.");
@@ -101,7 +112,7 @@ namespace BLShop.WEB.Services
 
         public void Dispose()
         {
-            Database.Dispose();
+            //Database.Dispose();
         }
     }
 }

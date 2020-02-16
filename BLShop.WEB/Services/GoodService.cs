@@ -9,11 +9,18 @@ namespace BLShop.WEB.Services
 {
     class GoodService : IGoodService
     {
-        IGoodUnitOfWork Database { get; set; }
+        private  IRepository<Good> Goods { get; set; }
+        private  IRepository<Transportation> Transportations { get; set; }
+        private  IRepository<Repair> Repairs { get; set; }
 
-        public GoodService(IGoodUnitOfWork uow)
+        public GoodService(
+            IRepository<Good> goods,
+            IRepository<Transportation> transportations,
+            IRepository<Repair> repairs)            
         {
-            Database = uow;
+            Goods = goods;
+            Transportations = transportations;
+            Repairs = repairs;
         }
 
         public void AddGood(GoodDTO goodDTO)
@@ -27,7 +34,7 @@ namespace BLShop.WEB.Services
                 TransportationId = goodDTO.TransportationId
             };
 
-            Database.Goods.Create(good);
+            Goods.Create(good);
         }
 
         public void AddTransportation(TransportationDTO transportationDTO)
@@ -39,7 +46,7 @@ namespace BLShop.WEB.Services
                 CostOfDelivery = transportationDTO.CostOfDelivery,
             };
 
-            Database.Transportations.Create(transportation);
+            Transportations.Create(transportation);
         }
 
         public void CreateRepair(RepairDTO repairDTO)
@@ -52,14 +59,14 @@ namespace BLShop.WEB.Services
                 TransportationId = repairDTO.TransportationId
             };
 
-            Database.Repairs.Create(repair);
+            Repairs.Create(repair);
         }
 
         public GoodDTO GetGood(int? id)
         {
             if (id != null)
             {
-                var good = Database.Goods.Get(id.Value);
+                var good = Goods.Get(id.Value);
                 if (good == null)
                 {
                     throw new Exception("Товар не найден.");
@@ -86,7 +93,7 @@ namespace BLShop.WEB.Services
 
         public void Dispose()
         {
-            Database.Dispose();
+            //Dispose();
         }
     }
 }

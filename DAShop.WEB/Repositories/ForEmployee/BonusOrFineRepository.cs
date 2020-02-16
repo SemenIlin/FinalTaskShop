@@ -15,7 +15,7 @@ namespace DAShop.WEB.Repositories.ForEmployee
         public BonusOrFineRepository(ShopContext context)
         {
             db = context;
-        }
+        }  
 
         public void Create(BonusOrFine item)
         {

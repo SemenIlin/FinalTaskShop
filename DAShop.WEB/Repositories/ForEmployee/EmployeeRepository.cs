@@ -50,5 +50,10 @@ namespace DAShop.WEB.Repositories.ForEmployee
         {
             db.Entry(item).State = EntityState.Modified;
         }
+
+        public void Save()
+        {
+            db.SaveChanges();
+        }
     }
 }

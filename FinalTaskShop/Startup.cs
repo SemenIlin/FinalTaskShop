@@ -2,7 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLShop.WEB.Interfaces;
+using BLShop.WEB.Services;
 using DAShop.WEB.EFCore;
+using DAShop.WEB.Interfaces;
+using DAShop.WEB.Models.ForEmployee;
+using DAShop.WEB.Models.ForGood;
+using DAShop.WEB.Models.ForRentalSpaces;
+using DAShop.WEB.Repositories;
+using DAShop.WEB.Repositories.ForEmployee;
+using DAShop.WEB.Repositories.ForGood;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,10 +35,28 @@ namespace FinalTaskShop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddMvc();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ShopContext>(options => options.UseSqlServer(connection));
+
+            services.AddScoped<DbContext, ShopContext>();
+
+            services.AddScoped<IRepository<Employee>, EmployeeRepository>();
+            services.AddScoped<IRepository<BonusOrFine>, BonusOrFineRepository>();
+            services.AddScoped<IRepository<Position>, PositionRepository>();
+            services.AddScoped<IRepository<SickLeave>, SickLeaveRepository>();
+
+            services.AddScoped<IRepository<Good>, GoodRepository>();
+            services.AddScoped<IRepository<Repair>, RepairRepository>();
+            services.AddScoped<IRepository<Transportation>, TransportationRepository>();
+
+            services.AddScoped<IRepository<RentalSpace>, RentalSpaceRepository>();
+
+            services.AddScoped<IEmployeeService,EmployeeService>();
+            services.AddScoped<IGoodService, GoodService>();
+
+            services.AddMvc();
+
             services.AddControllersWithViews();
         }
 

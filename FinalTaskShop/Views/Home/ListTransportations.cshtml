@@ -1,0 +1,56 @@
+﻿@model IEnumerable<FinalTaskShop.ViewModels.ForGood.TransportationViewModel>
+
+@{
+	ViewBag.Title = "ListTransportations";
+}
+
+<h2>Список доставщиков</h2>
+
+<p>
+	@Html.ActionLink("Добавить доставщика", "CreateTransportation")
+</p>
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayName("Название")
+		</th>
+		<th>
+			@Html.DisplayName("Время отправки")
+		</th>
+		<th>
+			@Html.DisplayName("Время доставки")
+		</th>
+		<th>
+			@Html.DisplayName("Цена")
+		</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.TitleTransport)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.DataOfSend)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.DateOfArrival)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.CostOfDelivery)
+			</td>
+			
+			<td>
+				@Html.ActionLink("Редактировать", "EditGood", new { id = item.Id }) |
+				@Html.ActionLink("Удалить", "DeleteGood", new { id = item.Id })
+			</td>
+		</tr>
+	}
+
+</table>
+
+<div>
+	@Html.ActionLink("Назад", "Index")
+</div>

@@ -9,5 +9,7 @@ namespace FinalTaskShop.ViewModels.ForGood
         public string Title { get; set; }
         public DateTime DateOfRepair { get; set; }
         public decimal CostOfRepair { get; set; }
+
+        public int TransportationId { get; set; }
     }
 }

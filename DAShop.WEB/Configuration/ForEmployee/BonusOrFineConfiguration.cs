@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DAShop.WEB.Configuration.ForEmployee
 {
-    public class BonusOrFineConfiguration : IEntityTypeConfiguration<BonusOrFine>
+    public class RentalSpaceConfiguration : IEntityTypeConfiguration<BonusOrFine>
     {
         public void Configure(EntityTypeBuilder<BonusOrFine> builder)
         {

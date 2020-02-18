@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace DAShop.WEB.Models.ForGood
 {
@@ -9,10 +8,11 @@ namespace DAShop.WEB.Models.ForGood
         public Transportation()
         {
             Repairs = new List<Repair>();
+            Goods = new List<Good>();
         }
 
-        [Key]
         public int Id { get; set; }
+        public string TitleTransport { get; set; }
 
         public DateTime DataOfSend { get; set; }
         public DateTime DateOfArrival { get; set; }

@@ -11,6 +11,7 @@ namespace DAShop.WEB.Configuration.ForGood
             builder.ToTable("Transportations");
 
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.TitleTransport).IsRequired().HasMaxLength(100);
             builder.Property(x => x.DataOfSend).IsRequired();
             builder.Property(x => x.CostOfDelivery).IsRequired();
             builder.Property(x => x.CostOfDelivery).HasDefaultValue(0);

@@ -20,6 +20,7 @@ namespace DAShop.WEB.Repositories.ForGood
         public void Create(Good item)
         {
             db.Goods.Add(item);
+            Save();
         }
 
         public void Delete(int id)
@@ -29,6 +30,8 @@ namespace DAShop.WEB.Repositories.ForGood
             {
                 db.Goods.Remove(good);
             }
+
+            Save();
         }
 
         public IEnumerable<Good> Find(Func<Good, bool> predicate)
@@ -49,6 +52,12 @@ namespace DAShop.WEB.Repositories.ForGood
         public void Update(Good item)
         {
             db.Entry(item).State = EntityState.Modified;
+            Save();
+        }
+
+        public void Save()
+        {
+            db.SaveChanges();
         }
     }
 }

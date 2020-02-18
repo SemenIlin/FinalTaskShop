@@ -96,7 +96,7 @@ namespace BLShop.WEB.Services
                     SurName = employee.SurName,
                     Patronymic = employee.Patronymic,
                     Birthday = employee.Birthday,
-                    PositionId = employee.PositionId.Value
+                    PositionId = employee.PositionId
                 };
             }
             else

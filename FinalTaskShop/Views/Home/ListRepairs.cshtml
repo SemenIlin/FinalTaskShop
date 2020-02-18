@@ -1,0 +1,56 @@
+﻿@model IEnumerable<FinalTaskShop.ViewModels.ForGood.RepairViewModel>
+
+@{
+	ViewBag.Title = "ListRepairs";
+}
+
+<h2>Список поломок</h2>
+
+<p>
+	@Html.ActionLink("Добавить поломку", "CreateRepair")
+</p>
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayName("Название")
+		</th>
+		<th>
+			@Html.DisplayName("Цена поломки")
+		</th>
+		<th>
+			@Html.DisplayName("Дата поломки")
+		</th>
+		<th>
+			@Html.DisplayName("У какого доставщика")
+		</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Title)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.CostOfRepair)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.DateOfRepair)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.TransportationId)
+			</td>
+			<td>
+				@Html.ActionLink("Редактировать", "EditRepair", new { id = item.Id }) |
+				@Html.ActionLink("Удалить", "DeleteRepair", new { id = item.Id })
+			</td>
+		</tr>
+	}
+
+</table>
+
+<div>
+	@Html.ActionLink("Назад", "Index")
+</div>
+

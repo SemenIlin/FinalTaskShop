@@ -12,6 +12,6 @@ namespace DAShop.WEB.Models.ForEmployee
         public decimal MonetaryCompensation { get; set; }
 
         public Employee Employee { get; set; }
-        public int? EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
     }
 }

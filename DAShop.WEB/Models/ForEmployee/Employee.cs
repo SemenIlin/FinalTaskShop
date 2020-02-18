@@ -23,6 +23,6 @@ namespace DAShop.WEB.Models.ForEmployee
         public ICollection<SickLeave> SickLeaves { get; set; }
 
         public Position Position { get; set; }
-        public int? PositionId { get; set; }
+        public int PositionId { get; set; }
     }
 }

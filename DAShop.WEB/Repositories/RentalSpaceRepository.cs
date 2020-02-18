@@ -49,5 +49,10 @@ namespace DAShop.WEB.Repositories
         {
             db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
+
+        public void Save()
+        {
+            db.SaveChanges();
+        }
     }
 }

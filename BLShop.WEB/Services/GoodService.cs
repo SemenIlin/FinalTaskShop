@@ -4,96 +4,139 @@ using DAShop.WEB.Interfaces;
 using DAShop.WEB.Models.ForGood;
 using System;
 using System.Collections.Generic;
+using BLShop.WEB.Infrastructure;
 
 namespace BLShop.WEB.Services
 {
-    class GoodService : IGoodService
+    public class GoodService : IGoodService
     {
-        private  IRepository<Good> Goods { get; set; }
-        private  IRepository<Transportation> Transportations { get; set; }
-        private  IRepository<Repair> Repairs { get; set; }
+        private readonly IRepository<Good> goods;
+        private readonly IRepository<Transportation> transportations;
+        private readonly IRepository<Repair> repairs;
 
         public GoodService(
             IRepository<Good> goods,
             IRepository<Transportation> transportations,
             IRepository<Repair> repairs)            
         {
-            Goods = goods;
-            Transportations = transportations;
-            Repairs = repairs;
+            this.goods = goods;
+            this.transportations = transportations;
+            this.repairs = repairs;
         }
 
         public void AddGood(GoodDTO goodDTO)
         {
-            var good = new Good
-            { 
-                Title = goodDTO.Title,
-                PurchasePrice = goodDTO.PurchasePrice,
-                SalePrice = goodDTO.SalePrice,
-                Qyantiy = goodDTO.Qyantiy,
-                TransportationId = goodDTO.TransportationId
-            };
+            var good = goodDTO.ToGood();
 
-            Goods.Create(good);
+            goods.Create(good);
         }
 
         public void AddTransportation(TransportationDTO transportationDTO)
         {
-            var transportation = new Transportation
-            {
-                DataOfSend = transportationDTO.DataOfSend,
-                DateOfArrival = transportationDTO.DateOfArrival,
-                CostOfDelivery = transportationDTO.CostOfDelivery,
-            };
+            var transportation = transportationDTO.ToTransportation();
 
-            Transportations.Create(transportation);
+            transportations.Create(transportation);
         }
 
         public void CreateRepair(RepairDTO repairDTO)
         {
-            var repair = new Repair
-            {
-                Title = repairDTO.Title,
-                CostOfRepair = repairDTO.CostOfRepair,
-                DateOfRepair = repairDTO.DateOfRepair,
-                TransportationId = repairDTO.TransportationId
-            };
+            var repair = repairDTO.ToRepair();
 
-            Repairs.Create(repair);
+            repairs.Create(repair);
         }
 
-        public GoodDTO GetGood(int? id)
+        public GoodDTO GetGood(int id)
         {
-            if (id != null)
+            var good = goods.Get(id);
+            if (good == null)
             {
-                var good = Goods.Get(id.Value);
-                if (good == null)
-                {
-                    throw new Exception("Товар не найден.");
-                }
-                return new GoodDTO
-                {
-                    Title = good.Title,
-                    PurchasePrice = good.PurchasePrice,
-                    SalePrice = good.SalePrice,
-                    Qyantiy = good.Qyantiy,
-                    TransportationId = good.TransportationId
-                };
+                throw new Exception("Товар не найден.");
             }
-            else
+
+            return new GoodDTO
             {
-                throw new NullReferenceException("Страница не найдена.");
-            }
+                Title = good.Title,
+                PurchasePrice = good.PurchasePrice,
+                SalePrice = good.SalePrice,
+                Qyantity = good.Qyantity,
+                TransportationId = good.TransportationId
+            };            
         }
 
         public IEnumerable<GoodDTO> GetGoods()
         {
-            throw new NotImplementedException();
+            return goods.GetAll().ToListGoodDTO();
         }
 
         public void Dispose()
         {
             //Dispose();
+        }
+
+        public void DeleteGood(int id)
+        {
+            goods.Delete(id);            
+        }
+
+        public void UpdateGood(GoodDTO goodDTO)
+        {
+            var good = goodDTO.ToGood();
+
+            goods.Update(good);
+        }
+
+        public IEnumerable<TransportationDTO> GetTransportations()
+        {
+            return transportations.GetAll().ToListTransposrtationDTO();
+        }
+
+        public TransportationDTO GetTransportation(int id)
+        {
+            var transportation = transportations.Get(id);
+            if(transportation == null)
+            {
+                throw new NullReferenceException("Транспортировка не найдена.");
+            }
+
+            return transportation.ToTransportationDTO();
+        }
+
+        public void DeleteTransportation(int id)
+        {
+            transportations.Delete(id);
+        }
+
+        public void UpdateTransportation(TransportationDTO transportationDTO)
+        {
+            var transportation = transportationDTO.ToTransportation();
+            transportations.Update(transportation);
+        }
+
+        public IEnumerable<RepairDTO> GetRepairs()
+        {
+            return repairs.GetAll().ToListRepairDTO();
+        }
+
+        public RepairDTO GetRepair(int id)
+        {
+            var repair = repairs.Get(id);
+            if(repair == null)
+            {
+                throw new NullReferenceException("Поломка не найдена.");
+            }
+
+            return repair.ToRepairDTO();
+        }
+
+        public void DeleteRepair(int id)
+        {
+            repairs.Delete(id);
+        }
+
+        public void UpdateRepair(RepairDTO repairDTO)
+        {
+            var repair = repairDTO.ToRepair();
+            repairs.Update(repair);
         }
     }
 }

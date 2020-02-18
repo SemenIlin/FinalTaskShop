@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BLShop.WEB\BLShop.WEB.csproj" />
     <ProjectReference Include="..\DAShop.WEB\DAShop.WEB.csproj" />
   </ItemGroup>
 

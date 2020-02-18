@@ -1,0 +1,52 @@
+﻿@model FinalTaskShop.ViewModels.ForGood.RepairViewModel
+
+@{
+	ViewBag.Title = "DeleteRepair";
+}
+
+<h3>Вы точно хотите удалить эту поломку?</h3>
+<div>
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayName("Название")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Title)
+		</dd>
+
+		<dt>
+			@Html.DisplayName("Цена поломки")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.CostOfRepair)
+		</dd>
+
+		<dt>
+			@Html.DisplayName("Дата поломки")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.DateOfRepair)
+		</dd>
+
+		<dt>
+			@Html.DisplayName("У какого доставщика")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.TransportationId)
+		</dd>
+	</dl>
+
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+
+		<div class="form-actions no-color">
+			<input type="submit" value="Удалить" class="btn btn-default" /> |
+			@Html.ActionLink("Назад", "ListRepairs")
+		</div>
+	}
+</div>

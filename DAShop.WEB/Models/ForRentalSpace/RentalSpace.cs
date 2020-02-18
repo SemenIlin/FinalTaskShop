@@ -1,5 +1,4 @@
-﻿
-namespace DAShop.WEB.Models.ForRentalSpaces
+﻿namespace DAShop.WEB.Models.ForRentalSpaces
 {
     public class RentalSpace
     {

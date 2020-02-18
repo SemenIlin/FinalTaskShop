@@ -1,4 +1,6 @@
-﻿using DAShop.WEB.Models.ForEmployee;
+﻿using DAShop.WEB.Configuration.ForEmployee;
+using DAShop.WEB.Configuration.ForGood;
+using DAShop.WEB.Models.ForEmployee;
 using DAShop.WEB.Models.ForGood;
 using DAShop.WEB.Models.ForRentalSpaces;
 using Microsoft.EntityFrameworkCore;
@@ -23,5 +25,25 @@ namespace DAShop.WEB.EFCore
         {
             Database.EnsureCreated();
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.ApplyConfiguration(new RentalSpaceConfiguration());
+            //modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
+            //modelBuilder.ApplyConfiguration(new PositionConfiguration());
+            //modelBuilder.ApplyConfiguration(new SickLeaveConfiguration());
+
+            //modelBuilder.ApplyConfiguration(new GoodConfiguration());
+            //modelBuilder.ApplyConfiguration(new TransportationConfiguration());
+            //modelBuilder.ApplyConfiguration(new RepairConfiguration());
+
+            //modelBuilder.ApplyConfiguration(new RentalSpaceConfiguration());
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ShopContext).Assembly);
+        }
+
+
     }
 }

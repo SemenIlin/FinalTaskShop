@@ -11,6 +11,6 @@ namespace DAShop.WEB.Models.ForGood
         public decimal CostOfRepair { get; set; }
 
         public Transportation Transportation { get; set; }
-        public int? TransportationId { get; set; }
+        public int TransportationId { get; set; }
     }
 }

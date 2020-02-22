@@ -20,15 +20,15 @@ namespace DAShop.WEB.Repositories.ForEmployee
         public void Create(BonusOrFine item)
         {
             db.BonusOrFines.Add(item);
+            Save();
         }
 
         public void Delete(int id)
         {
-            var bonusOrFine = db.BonusOrFines.Find(id);
-            if(bonusOrFine != null)
-            {
-                db.BonusOrFines.Remove(bonusOrFine);
-            }
+            var bonusOrFine = db.BonusOrFines.Find(id);      
+            db.BonusOrFines.Remove(bonusOrFine);
+            
+            Save();
         }
 
         public IEnumerable<BonusOrFine> Find(Func<BonusOrFine, bool> predicate)
@@ -49,6 +49,7 @@ namespace DAShop.WEB.Repositories.ForEmployee
         public void Update(BonusOrFine item)
         {
             db.Entry(item).State = EntityState.Modified;
+            Save();
         }
 
         public void Save()

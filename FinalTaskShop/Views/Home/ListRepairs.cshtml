@@ -39,9 +39,10 @@
 				@Html.DisplayFor(modelItem => item.DateOfRepair)
 			</td>
 			<td>
-				@Html.DisplayFor(modelItem => item.TransportationId)
+				@Html.DisplayFor(modelItem => item.TransportationDTO.TitleTransport)
 			</td>
 			<td>
+				@Html.ActionLink("Подробнее о компании доставщике", "DetailsTransportation", new { id = item.TransportationId }) |
 				@Html.ActionLink("Редактировать", "EditRepair", new { id = item.Id }) |
 				@Html.ActionLink("Удалить", "DeleteRepair", new { id = item.Id })
 			</td>

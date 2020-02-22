@@ -1,0 +1,39 @@
+﻿@model FinalTaskShop.ViewModels.ForGood.TransportationViewModel
+
+<hr />
+<dl class="dl-horizontal">
+	<dt>
+		@Html.DisplayName("Название")
+	</dt>
+	<dd>
+		@Html.DisplayFor(model => model.TitleTransport);
+	</dd>
+	<dt>
+		@Html.DisplayName("Время отправления")
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.DataOfSend)
+	</dd>
+
+	<dt>
+		@Html.DisplayName("Время прибытия")
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.DateOfArrival)
+	</dd>
+
+	<dt>
+		@Html.DisplayName("Стоимость доставки")
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.CostOfDelivery)
+	</dd>
+</dl>
+
+<div>
+	@Html.ActionLink("К списку", "ListGoods")
+</div>
+

@@ -12,7 +12,7 @@ namespace DAShop.WEB.Configuration.ForEmployee
 
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Title).IsRequired().HasMaxLength(100);
-            builder.Property(x => x.MinSalary).HasDefaultValue(0);
+            builder.Property(x => x.MinSalary).IsRequired(); 
         }
     }
 }

@@ -30,29 +30,29 @@
 	</tr>
 
 	@foreach (var item in Model)
-	{
-<tr>
-	<td>
-		@Html.DisplayFor(modelItem => item.Title)
-	</td>
-	<td>
-		@Html.DisplayFor(modelItem => item.PurchasePrice)
-	</td>
-	<td>
-		@Html.DisplayFor(modelItem => item.SalePrice)
-	</td>
-	<td>
-		@Html.DisplayFor(modelItem => item.Qyantity)
-	</td>
-	<td>
-		@Html.DisplayFor(modelItem => item.TransportationId)
-	</td>
-	<td>
-		@Html.ActionLink("Редактировать", "EditGood", new { id = item.Id }) |
-		@Html.ActionLink("Удалить", "DeleteGood", new { id = item.Id })
-	</td>
-</tr>
-	}
+	 {
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Title)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.PurchasePrice)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.SalePrice)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Qyantity)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.TransportationDTO.TitleTransport)
+			</td>
+			<td>
+				@Html.ActionLink("Редактировать", "EditGood", new { id = item.Id }) |
+				@Html.ActionLink("Удалить", "DeleteGood", new { id = item.Id })
+			</td>
+		</tr>
+	 }
 
 </table>
 

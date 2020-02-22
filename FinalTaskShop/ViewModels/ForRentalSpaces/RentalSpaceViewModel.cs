@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace FinalTaskShop.ViewModels.ForRentalSpaces
 {
     public class RentalSpaceViewModel

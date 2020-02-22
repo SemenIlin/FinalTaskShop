@@ -13,7 +13,7 @@ namespace DAShop.WEB.Configuration.ForRentalSpace
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Title).IsRequired().HasMaxLength(100);
             builder.Property(x => x.Month).IsRequired();
-            builder.Property(x => x.Rental).HasDefaultValue(0);
+            builder.Property(x => x.Rental).IsRequired();
         }
     }
 }

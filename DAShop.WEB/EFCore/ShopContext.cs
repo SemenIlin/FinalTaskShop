@@ -30,17 +30,6 @@ namespace DAShop.WEB.EFCore
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.ApplyConfiguration(new RentalSpaceConfiguration());
-            //modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
-            //modelBuilder.ApplyConfiguration(new PositionConfiguration());
-            //modelBuilder.ApplyConfiguration(new SickLeaveConfiguration());
-
-            //modelBuilder.ApplyConfiguration(new GoodConfiguration());
-            //modelBuilder.ApplyConfiguration(new TransportationConfiguration());
-            //modelBuilder.ApplyConfiguration(new RepairConfiguration());
-
-            //modelBuilder.ApplyConfiguration(new RentalSpaceConfiguration());
-
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ShopContext).Assembly);
         }
 

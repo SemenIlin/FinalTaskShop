@@ -19,15 +19,15 @@ namespace DAShop.WEB.Repositories.ForEmployee
         public void Create(SickLeave item)
         {
             db.SickLeaves.Add(item);
+            Save();
         }
 
         public void Delete(int id)
         {
             var sickLeave = db.SickLeaves.Find(id);
-            if(sickLeave != null)
-            {
-                db.SickLeaves.Remove(sickLeave);
-            }
+            db.SickLeaves.Remove(sickLeave);
+            
+            Save();
         }
 
         public IEnumerable<SickLeave> Find(Func<SickLeave, bool> predicate)
@@ -48,6 +48,7 @@ namespace DAShop.WEB.Repositories.ForEmployee
         public void Update(SickLeave item)
         {
             db.Entry(item).State = EntityState.Modified;
+            Save();
         }
 
         public void Save()

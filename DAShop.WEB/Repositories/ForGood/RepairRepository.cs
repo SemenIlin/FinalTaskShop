@@ -20,15 +20,14 @@ namespace DAShop.WEB.Repositories.ForGood
         public void Create(Repair item)
         {
             db.Repairs.Add(item);
+            Save();
         }
 
         public void Delete(int id)
         {
-            var repair = db.Repairs.Find(id);
-            if(repair != null)
-            {
-                db.Repairs.Remove(repair);
-            }
+            var repair = db.Repairs.Find(id);  
+            db.Repairs.Remove(repair);
+            Save();            
         }
 
         public IEnumerable<Repair> Find(Func<Repair, bool> predicate)
@@ -49,6 +48,7 @@ namespace DAShop.WEB.Repositories.ForGood
         public void Update(Repair item)
         {
             db.Entry(item).State = EntityState.Modified;
+            Save();
         }
 
         public void Save()

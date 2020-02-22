@@ -1,0 +1,51 @@
+﻿@model IEnumerable<FinalTaskShop.ViewModels.ForRentalSpaces.RentalSpaceViewModel>
+
+@{
+	ViewBag.Title = "ListRentalSpaces";
+}
+
+<h2>Список арендуемых помещений</h2>
+
+<p>
+	@Html.ActionLink("Добавить помещение", "CreateRentalSpace")
+</p>
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayName("Название")
+		</th>
+		<th>
+			@Html.DisplayName("Плата")
+		</th>
+		<th>
+			@Html.DisplayName("Месяц")
+		</th>
+		
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Title)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Rental)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Month)
+			</td>
+			<td>
+				@Html.ActionLink("Редактировать", "EditRentalSpace", new { id = item.Id }) |
+				@Html.ActionLink("Удалить", "DeleteRentalSpace", new { id = item.Id })
+			</td>
+		</tr>
+	}
+
+</table>
+
+<div>
+	@Html.ActionLink("Назад", "Index")
+</div>
+

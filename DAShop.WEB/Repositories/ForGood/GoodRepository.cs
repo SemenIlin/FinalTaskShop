@@ -26,10 +26,7 @@ namespace DAShop.WEB.Repositories.ForGood
         public void Delete(int id)
         {
             var good = db.Goods.Find(id);
-            if(good != null)
-            {
-                db.Goods.Remove(good);
-            }
+            db.Goods.Remove(good);
 
             Save();
         }

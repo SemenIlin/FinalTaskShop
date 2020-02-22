@@ -1,10 +1,10 @@
-﻿using BLShop.WEB.Interfaces;
+﻿using BLShop.WEB.Infrastructure;
+using BLShop.WEB.Interfaces;
 using BLShop.WEB.ModelsDTO.ForGood;
 using DAShop.WEB.Interfaces;
 using DAShop.WEB.Models.ForGood;
 using System;
 using System.Collections.Generic;
-using BLShop.WEB.Infrastructure;
 
 namespace BLShop.WEB.Services
 {
@@ -50,17 +50,10 @@ namespace BLShop.WEB.Services
             var good = goods.Get(id);
             if (good == null)
             {
-                throw new Exception("Товар не найден.");
+                throw new NullReferenceException();
             }
 
-            return new GoodDTO
-            {
-                Title = good.Title,
-                PurchasePrice = good.PurchasePrice,
-                SalePrice = good.SalePrice,
-                Qyantity = good.Qyantity,
-                TransportationId = good.TransportationId
-            };            
+            return good.ToGoodDTO();           
         }
 
         public IEnumerable<GoodDTO> GetGoods()
@@ -95,7 +88,7 @@ namespace BLShop.WEB.Services
             var transportation = transportations.Get(id);
             if(transportation == null)
             {
-                throw new NullReferenceException("Транспортировка не найдена.");
+                throw new NullReferenceException();
             }
 
             return transportation.ToTransportationDTO();
@@ -122,7 +115,7 @@ namespace BLShop.WEB.Services
             var repair = repairs.Get(id);
             if(repair == null)
             {
-                throw new NullReferenceException("Поломка не найдена.");
+                throw new NullReferenceException();
             }
 
             return repair.ToRepairDTO();

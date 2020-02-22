@@ -20,15 +20,15 @@ namespace DAShop.WEB.Repositories.ForEmployee
         public void Create(Position item)
         {
             db.Positions.Add(item);
+            Save();
         }
 
         public void Delete(int id)
         {
             var position = db.Positions.Find(id);
-            if(position != null)
-            {
-                db.Positions.Remove(position);
-            }
+            db.Positions.Remove(position);
+          
+            Save();
         }
 
         public IEnumerable<Position> Find(Func<Position, bool> predicate)
@@ -49,6 +49,7 @@ namespace DAShop.WEB.Repositories.ForEmployee
         public void Update(Position item)
         {
             db.Entry(item).State = EntityState.Modified;
+            Save();
         }
 
         public void Save()

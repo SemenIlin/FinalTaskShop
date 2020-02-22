@@ -1,4 +1,6 @@
-﻿namespace BLShop.WEB.ModelsDTO.ForGood
+﻿using DAShop.WEB.Models.ForGood;
+
+namespace BLShop.WEB.ModelsDTO.ForGood
 {
     public class GoodDTO
     {
@@ -9,6 +11,7 @@
         public decimal SalePrice { get; set; }
         public int Qyantity { get; set; }
 
+        public Transportation Transportation { get; set; }
         public int TransportationId { get; set; }
     }
 }

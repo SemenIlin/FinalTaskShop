@@ -20,15 +20,14 @@ namespace DAShop.WEB.Repositories.ForGood
         public void Create(Transportation item)
         {
             db.Transportations.Add(item);
+            Save();
         }
 
         public void Delete(int id)
         {
-            var transportation = db.Transportations.Find(id);
-            if(transportation != null)
-            {
-                db.Transportations.Remove(transportation);
-            }           
+            var transportation = db.Transportations.Find(id); 
+            db.Transportations.Remove(transportation);
+            Save();
         }
 
         public IEnumerable<Transportation> Find(Func<Transportation, bool> predicate)
@@ -49,6 +48,7 @@ namespace DAShop.WEB.Repositories.ForGood
         public void Update(Transportation item)
         {
             db.Entry(item).State = EntityState.Modified;
+            Save();
         }
 
         public void Save()

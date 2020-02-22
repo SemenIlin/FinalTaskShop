@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BLShop.WEB.Interfaces;
-using BLShop.WEB.ModelsDTO.ForGood;
-using DAShop.WEB.Interfaces;
+﻿using BLShop.WEB.Interfaces;
 using FinalTaskShop.ViewModels.ForGood;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using FinalTaskShop.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FinalTaskShop.Controllers
 {
@@ -20,6 +14,7 @@ namespace FinalTaskShop.Controllers
         {
             this.goodService = goodService;
         }
+
         // GET: Home
         public ActionResult Index()
         {
@@ -30,12 +25,15 @@ namespace FinalTaskShop.Controllers
         public ActionResult ListGoods()
         {
             var listGoods = goodService.GetGoods().ToListGoodViewModel();
+         
             return View(listGoods);
         }
 
         [HttpGet]
         public ActionResult GoodCreate()
         {
+            var transportationCompanies = goodService.GetTransportations().ToListTransposrtationViewModel();
+            ViewBag.Companies = new SelectList(transportationCompanies, "Id", "TitleTransport");
             return View();
         }
 
@@ -51,18 +49,17 @@ namespace FinalTaskShop.Controllers
         [HttpGet]
         public ActionResult DeleteGood(int? id)
         {
-            if (id == null)
+            try
+            {
+                var good = goodService.GetGood(id.Value);
+                //ViewBag.Company = goodService.GetTransportation(good.TransportationId).ToTransportationViewModel().TitleTransport;
+                
+                return View(good.ToGoodViewModel());
+            }
+            catch
             {
                 return RedirectToAction("NotFound");
             }
-
-            var good = goodService.GetGood(id.Value);
-            if (good == null)
-            {
-                return RedirectToAction("NotFound");
-            }
-
-            return View(good.ToGoodViewModel());
         }
 
         [HttpPost, ActionName("DeleteGood")]
@@ -81,26 +78,27 @@ namespace FinalTaskShop.Controllers
 
             goodService.DeleteGood(id.Value);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ListGoods");
         }
 
         [HttpGet]
         public ActionResult EditGood(int? id)
         {
-            if (id == null)
+            try
+            {
+                var transportationCompanies = goodService.GetTransportations().ToListTransposrtationViewModel();
+                ViewBag.Companies = new SelectList(transportationCompanies, "Id", "TitleTransport");
+
+                var good = goodService.GetGood(id.Value);
+                var goodViewModel = good.ToGoodViewModel();
+
+
+                return View(goodViewModel);
+            }
+            catch
             {
                 return RedirectToAction("NotFound");
             }
-
-            var good = goodService.GetGood(id.Value);
-            if (good == null)
-            {
-                return RedirectToAction("NotFound");
-            }
-
-            var goodViewModel = good.ToGoodViewModel();         
-
-            return View(goodViewModel);
         }
 
         [HttpPost]
@@ -109,7 +107,7 @@ namespace FinalTaskShop.Controllers
             var goodDTO = goodViewModel.ToGoodDTO();
             goodService.UpdateGood(goodDTO);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ListGoods");
         }
 
         [HttpGet]
@@ -137,21 +135,18 @@ namespace FinalTaskShop.Controllers
         [HttpGet]
         public ActionResult DeleteTransportation(int? id)
         {
-            if (id == null)
+            try
+            {
+                var transportation = goodService.GetTransportation(id.Value);
+                return View(transportation.ToTransportationViewModel());
+            }
+            catch
             {
                 return RedirectToAction("NotFound");
             }
-
-            var transportation = goodService.GetTransportation(id.Value);
-            if (transportation == null)
-            {
-                return RedirectToAction("NotFound");
-            }
-
-            return View(transportation.ToTransportationViewModel());
         }
 
-        [HttpPost, ActionName("DeleteTransportation")]//создать каскадное удаление?
+        [HttpPost, ActionName("DeleteTransportation")]
         public ActionResult DeleteTransportationConfirmed(int? id)
         {
             if (id == null)
@@ -167,26 +162,40 @@ namespace FinalTaskShop.Controllers
 
             goodService.DeleteTransportation(id.Value);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ListTransportations");
         }
 
         [HttpGet]
-        public ActionResult EditTransportation(int? id)
+        public ActionResult DetailsTransportation(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction("NotFound");
             }
-
             var transportation = goodService.GetTransportation(id.Value);
+
             if (transportation == null)
             {
                 return RedirectToAction("NotFound");
             }
 
-            var transportationViewModel = transportation.ToTransportationViewModel();
+            return View(transportation);            
+        }
 
-            return View(transportationViewModel);
+        [HttpGet]
+        public ActionResult EditTransportation(int? id)
+        {
+            try
+            {
+                var transportation = goodService.GetTransportation(id.Value);
+                var transportationViewModel = transportation.ToTransportationViewModel();
+
+                return View(transportationViewModel);
+            }
+            catch
+            {
+                return RedirectToAction("NotFound");
+            }
         }
 
         [HttpPost]
@@ -195,12 +204,15 @@ namespace FinalTaskShop.Controllers
             var transportationDTO = transportationViewModel.ToTransportationDTO();
             goodService.UpdateTransportation(transportationDTO);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ListTransportations");
         }
 
         [HttpGet]
         public ActionResult CreateRepair()
         {
+            var transportationCompanies = goodService.GetTransportations().ToListTransposrtationViewModel();
+            ViewBag.Companies = new SelectList(transportationCompanies, "Id", "TitleTransport");
+
             return View();
         }
 
@@ -223,18 +235,16 @@ namespace FinalTaskShop.Controllers
         [HttpGet]
         public ActionResult DeleteRepair(int? id)
         {
-            if (id == null)
+            try
+            {
+                var repair = goodService.GetRepair(id.Value);
+
+                return View(repair.ToRepairViewModel());
+            }
+            catch
             {
                 return RedirectToAction("NotFound");
-            }
-
-            var repair = goodService.GetRepair(id.Value);
-            if (repair == null)
-            {
-                return RedirectToAction("NotFound");
-            }
-
-            return View(repair.ToRepairViewModel());
+            }     
         }
 
         [HttpPost, ActionName("DeleteRepair")]
@@ -253,26 +263,26 @@ namespace FinalTaskShop.Controllers
 
             goodService.DeleteRepair(id.Value);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ListRepairs");
         }
 
         [HttpGet]
         public ActionResult EditRepair(int? id)
         {
-            if (id == null)
+            try
+            {
+                var repair = goodService.GetRepair(id.Value);
+                var repairViewModel = repair.ToRepairViewModel();
+
+                var transportationCompanies = goodService.GetTransportations().ToListTransposrtationViewModel();
+                ViewBag.Companies = new SelectList(transportationCompanies, "Id", "TitleTransport");
+
+                return View(repairViewModel);
+            }
+            catch
             {
                 return RedirectToAction("NotFound");
             }
-
-            var repair = goodService.GetRepair(id.Value);
-            if (repair == null)
-            {
-                return RedirectToAction("NotFound");
-            }
-
-            var repairViewModel = repair.ToRepairViewModel();
-
-            return View(repairViewModel);
         }
 
         [HttpPost]
@@ -281,106 +291,7 @@ namespace FinalTaskShop.Controllers
             var repairDTO = repairViewModel.ToRepairDTO();
             goodService.UpdateRepair(repairDTO);
 
-            return RedirectToAction("Index");
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // GET: Home/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Home/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Home/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Home/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Home/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Home/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Home/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("ListRepairs");
         }
     }
 }

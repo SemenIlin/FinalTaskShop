@@ -1,4 +1,5 @@
-﻿using BLShop.WEB.Interfaces;
+﻿using BLShop.WEB.Infrastructure;
+using BLShop.WEB.Interfaces;
 using BLShop.WEB.Models.ForEmployee;
 using BLShop.WEB.ModelsDTO.ForEmployee;
 using DAShop.WEB.Interfaces;
@@ -10,10 +11,10 @@ namespace BLShop.WEB.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        private IRepository<Employee> Employees { get; set; }
-        private IRepository<BonusOrFine> BonusOfFines { get; set; }
-        private IRepository<Position> Positions { get; set; }
-        private IRepository<SickLeave> SickLeaves { get; set; }
+        private readonly IRepository<Employee> employees;
+        private readonly IRepository<BonusOrFine> bonusOfFines;
+        private readonly IRepository<Position> positions;
+        private readonly IRepository<SickLeave> sickLeaves;
 
         public EmployeeService(
             IRepository<Employee> employees,
@@ -22,97 +23,134 @@ namespace BLShop.WEB.Services
             IRepository<SickLeave> sickLeaves
             )
         {
-            Employees = employees;
-            BonusOfFines = bonusOfFines;
-            Positions = positions;
-            SickLeaves = sickLeaves;
+            this.employees = employees;
+            this.bonusOfFines = bonusOfFines;
+            this.positions = positions;
+            this.sickLeaves = sickLeaves;
         }
 
         public void AddBonusOrFine(BonusOrFineDTO bonusOrFine)
         {
-            var bonus = new BonusOrFine
-            {
-                Title = bonusOrFine.Title,
-                AmountOfBonusOrFine = bonusOrFine.AmountOfBonusOrFine,
-                Date = bonusOrFine.Date,
-                EmployeeId = bonusOrFine.EmployeeId
-            };
-
-            BonusOfFines.Create(bonus);
+            var bonus = bonusOrFine.ToBonusOrFine();
+            bonusOfFines.Create(bonus);
+            
         }
 
         public void AddEmployee(EmployeeDTO employeeDTO)
         {
-            var employee = new Employee
-            {
-                Name = employeeDTO.Name,
-                SurName = employeeDTO.SurName,
-                Patronymic = employeeDTO.Patronymic,
-                Birthday = employeeDTO.Birthday,
+            var employee = employeeDTO.ToEmployee();
 
-                PositionId = employeeDTO.PositionId
-            };
-
-            Employees.Create(employee);
+            employees.Create(employee);
         }
 
         public void AddSickLeave(SickLeaveDTO sickLeaveDTO)
         {
-            var sickLeave = new SickLeave
-            {
-                StartOfTheSickLeave = sickLeaveDTO.StartOfTheSickLeave,
-                FinishOfTheSickLeave = sickLeaveDTO.FinishOfTheSickLeave,
+            var sickLeave = sickLeaveDTO.ToSickLeave();
 
-                MonetaryCompensation = sickLeaveDTO.MonetaryCompensation,
-                EmployeeId = sickLeaveDTO.EmployeeId
-            };
-
-            SickLeaves.Create(sickLeave);
+            sickLeaves.Create(sickLeave);
         }
 
         public void CreatePosition(PositionDTO positionDTO)
         {
-            var position = new Position
-            {
-                Title = positionDTO.Title,
-                MinSalary = positionDTO.MinSalary,
-            };
+            var position = positionDTO.ToPosition();
 
-            Positions.Create(position);
+            positions.Create(position);
         }
 
-        public EmployeeDTO GetEmployee(int? id)
+        public EmployeeDTO GetEmployee(int id)
         {
-            if (id != null)
+            var employee = employees.Get(id);
+            if(employee == null)
             {
-                var employee = Employees.Get(id.Value);
-                if(employee == null)
-                {
-                    throw new Exception("Сотрудник не найден.");
-                }
-                return new EmployeeDTO
-                {
-                    Name = employee.Name,
-                    SurName = employee.SurName,
-                    Patronymic = employee.Patronymic,
-                    Birthday = employee.Birthday,
-                    PositionId = employee.PositionId
-                };
+                throw new NullReferenceException();
             }
-            else
-            {
-                throw new  NullReferenceException("Страница не найдена.");
-            }
+
+            return employee.ToEmployeeDTO();            
         }
 
         public IEnumerable<EmployeeDTO> GetEmployees()
         {
-            throw new NotImplementedException();
+            return employees.GetAll().ToListEmployeeDTO();
         }
 
         public void Dispose()
         {
             //Database.Dispose();
+        }
+
+        public void DeleteEmployee(int id)
+        {
+            employees.Delete(id);
+        }
+
+        public void UpdateEmployee(EmployeeDTO employeeDTO)
+        {
+            var employee = employeeDTO.ToEmployee();
+            employees.Update(employee);
+        }
+
+        public IEnumerable<BonusOrFineDTO> GetBonusOrFines()
+        {
+            return bonusOfFines.GetAll().ToListBonusOrFineDTO();
+        }
+
+        public BonusOrFineDTO GetBonusOrFine(int id)
+        {
+            var bonusOfFine = bonusOfFines.Get(id).ToBonusOrFineDTO();
+            return bonusOfFine;
+        }
+
+        public void DeleteBonusOrFine(int id)
+        {
+            bonusOfFines.Delete(id);
+        }
+
+        public void UpdateBonusOrFine(BonusOrFineDTO bonusOrFineDTO)
+        {
+            var bonusOrFine = bonusOrFineDTO.ToBonusOrFine();
+            bonusOfFines.Update(bonusOrFine);
+        }
+
+        public IEnumerable<SickLeaveDTO> GetSickLeaves()
+        {
+            return sickLeaves.GetAll().ToListSickLeaveDTO();
+        }
+
+        public SickLeaveDTO GetSickLeave(int id)
+        {
+            return sickLeaves.Get(id).ToSickLeaveDTO();
+        }
+
+        public void DeleteSickLeave(int id)
+        {
+            sickLeaves.Delete(id);
+        }
+
+        public void UpdateSickLeave(SickLeaveDTO sickLeaveDTO)
+        {
+            var sickLeave = sickLeaveDTO.ToSickLeave();
+            sickLeaves.Update(sickLeave);
+        }
+
+        public IEnumerable<PositionDTO> GetPosition()
+        {
+            return positions.GetAll().ToListPositionDTO();
+        }
+
+        public PositionDTO GetPosition(int id)
+        {
+            return positions.Get(id).ToPositionDTO();
+        }
+
+        public void DeletePosition(int id)
+        {
+            positions.Delete(id);
+        }
+
+        public void UpdatePosition(PositionDTO positionDTO)
+        {
+            var position = positionDTO.ToPosition();
+            positions.Update(position);
         }
     }
 }

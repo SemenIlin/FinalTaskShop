@@ -1,5 +1,10 @@
-﻿using BLShop.WEB.ModelsDTO.ForGood;
+﻿using BLShop.WEB.Models.ForEmployee;
+using BLShop.WEB.Models.ForRentalSpaces;
+using BLShop.WEB.ModelsDTO.ForEmployee;
+using BLShop.WEB.ModelsDTO.ForGood;
+using DAShop.WEB.Models.ForEmployee;
 using DAShop.WEB.Models.ForGood;
+using DAShop.WEB.Models.ForRentalSpaces;
 using System.Collections.Generic;
 
 namespace BLShop.WEB.Infrastructure
@@ -15,6 +20,7 @@ namespace BLShop.WEB.Infrastructure
                 PurchasePrice = good.PurchasePrice,
                 SalePrice = good.SalePrice,
                 Qyantity = good.Qyantity,
+                Transportation = good.Transportation,
                 TransportationId = good.TransportationId
             };
         }
@@ -40,6 +46,7 @@ namespace BLShop.WEB.Infrastructure
                 PurchasePrice = goodDTO.PurchasePrice,
                 SalePrice = goodDTO.SalePrice,
                 Qyantity = goodDTO.Qyantity,
+                Transportation = goodDTO.Transportation,
                 TransportationId = goodDTO.TransportationId
             };
         }
@@ -51,7 +58,8 @@ namespace BLShop.WEB.Infrastructure
                 Id = transportation.Id,
                 TitleTransport = transportation.TitleTransport,
                 DataOfSend = transportation.DataOfSend,
-                DateOfArrival = transportation.DateOfArrival
+                DateOfArrival = transportation.DateOfArrival,
+                CostOfDelivery = transportation.CostOfDelivery
             };
         }
 
@@ -74,7 +82,8 @@ namespace BLShop.WEB.Infrastructure
                 Id = transportationDTO.Id,
                 TitleTransport = transportationDTO.TitleTransport,
                 DataOfSend = transportationDTO.DataOfSend,
-                DateOfArrival = transportationDTO.DateOfArrival
+                DateOfArrival = transportationDTO.DateOfArrival,
+                CostOfDelivery = transportationDTO.CostOfDelivery
             };
         }
 
@@ -86,6 +95,7 @@ namespace BLShop.WEB.Infrastructure
                 Title = repair.Title,
                 CostOfRepair = repair.CostOfRepair,
                 DateOfRepair = repair.DateOfRepair,
+                Transportation = repair.Transportation,
                 TransportationId = repair.TransportationId
             };
         }
@@ -110,10 +120,186 @@ namespace BLShop.WEB.Infrastructure
                 Title = repairDTO.Title,
                 CostOfRepair = repairDTO.CostOfRepair,
                 DateOfRepair = repairDTO.DateOfRepair,
+                Transportation = repairDTO.Transportation,
                 TransportationId = repairDTO.TransportationId
             };
         }
 
+        public static RentalSpaceDTO ToRentalSpaceDTO(this RentalSpace rentalSpace)
+        {
+            return new RentalSpaceDTO
+            {
+                Id = rentalSpace.Id,
+                Title = rentalSpace.Title,
+                Month = rentalSpace.Month,
+                Rental = rentalSpace.Rental
+            };
+        }
 
+        public static IEnumerable<RentalSpaceDTO> ToListRentalSpaceDTO(this IEnumerable<RentalSpace> rentalSpaces)
+        {
+            List<RentalSpaceDTO> rentalSpaceDTOs = new List<RentalSpaceDTO>(4);
+
+            foreach (var rentalSpace in rentalSpaces)
+            {
+                rentalSpaceDTOs.Add(rentalSpace.ToRentalSpaceDTO());
+            }
+
+            return rentalSpaceDTOs;
+        }
+
+        public static RentalSpace ToRentalSpace(this RentalSpaceDTO rentalSpaceDTO)
+        {
+            return new RentalSpace
+            {
+                Id = rentalSpaceDTO.Id,
+                Title = rentalSpaceDTO.Title,
+                Month = rentalSpaceDTO.Month,
+                Rental = rentalSpaceDTO.Rental
+            };
+        }
+
+        public static BonusOrFineDTO ToBonusOrFineDTO(this BonusOrFine bonusOrFine)
+        {
+            return new BonusOrFineDTO
+            {
+                Id = bonusOrFine.Id,
+                Title = bonusOrFine.Title,
+                AmountOfBonusOrFine = bonusOrFine.AmountOfBonusOrFine,
+                Date = bonusOrFine.Date,
+                EmployeeId = bonusOrFine.EmployeeId
+            };
+        }
+
+        public static IEnumerable<BonusOrFineDTO> ToListBonusOrFineDTO(this IEnumerable<BonusOrFine> bonusOrFines)
+        {
+            List<BonusOrFineDTO> bonusOrFineDTOs = new List<BonusOrFineDTO>(4);
+
+            foreach (var bonusOrFine in bonusOrFines)
+            {
+                bonusOrFineDTOs.Add(bonusOrFine.ToBonusOrFineDTO());
+            }
+
+            return bonusOrFineDTOs;
+        }
+
+        public static BonusOrFine ToBonusOrFine(this BonusOrFineDTO bonusOrFineDTO)
+        {
+            return new BonusOrFine
+            {
+                Id = bonusOrFineDTO.Id,
+                Title = bonusOrFineDTO.Title,
+                Date = bonusOrFineDTO.Date,
+                AmountOfBonusOrFine = bonusOrFineDTO.AmountOfBonusOrFine,
+                EmployeeId = bonusOrFineDTO.EmployeeId
+            };
+        }
+
+        public static EmployeeDTO ToEmployeeDTO(this Employee employee)
+        {
+            return new EmployeeDTO
+            {
+                Id = employee.Id,
+                Name = employee.Name,
+                SurName = employee.SurName,
+                Patronymic = employee.Patronymic,
+                Birthday = employee.Birthday,
+                PositionId = employee.PositionId
+            };
+        }
+
+        public static IEnumerable<EmployeeDTO> ToListEmployeeDTO(this IEnumerable<Employee> employees)
+        {
+            List<EmployeeDTO> employeeDTOs = new List<EmployeeDTO>(4);
+
+            foreach (var employee in employees)
+            {
+                employeeDTOs.Add(employee.ToEmployeeDTO());
+            }
+
+            return employeeDTOs;
+        }
+
+        public static Employee ToEmployee(this EmployeeDTO employeeDTO)
+        {
+            return new Employee
+            {
+                Id = employeeDTO.Id,
+                Name = employeeDTO.Name,
+                SurName = employeeDTO.SurName,
+                Patronymic = employeeDTO.Patronymic,
+                Birthday = employeeDTO.Birthday,
+                PositionId = employeeDTO.PositionId
+            };
+        }
+
+        public static PositionDTO ToPositionDTO(this Position position)
+        {
+            return new PositionDTO
+            {
+                Id = position.Id,
+                MinSalary = position.MinSalary,
+                Title = position.Title                
+            };
+        }
+
+        public static IEnumerable<PositionDTO> ToListPositionDTO(this IEnumerable<Position> positions)
+        {
+            List<PositionDTO> positionDTOs = new List<PositionDTO>(4);
+
+            foreach (var position in positions)
+            {
+                positionDTOs.Add(position.ToPositionDTO());
+            }
+
+            return positionDTOs;
+        }
+
+        public static Position ToPosition(this PositionDTO positionDTO)
+        {
+            return new Position
+            {
+                Id = positionDTO.Id,
+                Title = positionDTO.Title,
+                MinSalary = positionDTO.MinSalary
+            };
+        }
+
+
+        public static SickLeaveDTO ToSickLeaveDTO(this SickLeave sickLeave)
+        {
+            return new SickLeaveDTO
+            {
+                Id = sickLeave.Id,
+                StartOfTheSickLeave = sickLeave.StartOfTheSickLeave,
+                FinishOfTheSickLeave = sickLeave.FinishOfTheSickLeave,
+                MonetaryCompensation = sickLeave.MonetaryCompensation,
+                EmployeeId = sickLeave.EmployeeId
+            };
+        }
+
+        public static IEnumerable<SickLeaveDTO> ToListSickLeaveDTO(this IEnumerable<SickLeave> sickLeaves)
+        {
+            List<SickLeaveDTO> sickLeaveDTOs = new List<SickLeaveDTO>(4);
+
+            foreach (var sickLeave in sickLeaves)
+            {
+                sickLeaveDTOs.Add(sickLeave.ToSickLeaveDTO());
+            }
+
+            return sickLeaveDTOs;
+        }
+
+        public static SickLeave ToSickLeave(this SickLeaveDTO sickLeaveDTO)
+        {
+            return new SickLeave
+            {
+                Id = sickLeaveDTO.Id,
+                StartOfTheSickLeave = sickLeaveDTO.StartOfTheSickLeave,
+                FinishOfTheSickLeave = sickLeaveDTO.FinishOfTheSickLeave,
+                MonetaryCompensation = sickLeaveDTO.MonetaryCompensation,
+                EmployeeId = sickLeaveDTO.EmployeeId
+            };
+        }
     }
 }

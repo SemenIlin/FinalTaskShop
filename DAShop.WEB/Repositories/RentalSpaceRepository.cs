@@ -19,6 +19,7 @@ namespace DAShop.WEB.Repositories
         public void Create(RentalSpace item)
         {
             db.RentalSpaces.Add(item);
+            Save();
         }
 
         public void Delete(int id)
@@ -28,6 +29,8 @@ namespace DAShop.WEB.Repositories
             {
                 db.RentalSpaces.Remove(rentalSpaces);
             }
+
+            Save();
         }
 
         public IEnumerable<RentalSpace> Find(Func<RentalSpace, bool> predicate)
@@ -48,6 +51,7 @@ namespace DAShop.WEB.Repositories
         public void Update(RentalSpace item)
         {
             db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            Save();
         }
 
         public void Save()

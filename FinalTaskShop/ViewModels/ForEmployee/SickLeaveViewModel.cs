@@ -10,5 +10,7 @@ namespace FinalTaskShop.ViewModels.ForEmployee
         public DateTime FinishOfTheSickLeave { get; set; }
 
         public decimal MonetaryCompensation { get; set; }
+
+        public int EmployeeId { get; set; }
     }
 }

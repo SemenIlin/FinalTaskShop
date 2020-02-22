@@ -13,13 +13,9 @@ namespace DAShop.WEB.Configuration.ForEmployee
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Title).IsRequired().HasMaxLength(100);
             builder.Property(x => x.Date).IsRequired();
-            builder.Property(x => x.AmountOfBonusOrFine).HasDefaultValue(0);
+            builder.Property(x => x.AmountOfBonusOrFine).IsRequired(); 
 
             builder.HasOne(x => x.Employee).WithMany().HasForeignKey(x => x.EmployeeId);
-
-
-
-
         }
     }
 }

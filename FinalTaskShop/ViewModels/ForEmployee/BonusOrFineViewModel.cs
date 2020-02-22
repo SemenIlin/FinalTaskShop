@@ -8,5 +8,7 @@ namespace FinalTaskShop.ViewModels.ForEmployee
         public string Title { get; set; }
         public decimal AmountOfBonusOrFine { get; set; }
         public DateTime Date { get; set; }
+
+        public int EmployeeId { get; set; }
     }
 }

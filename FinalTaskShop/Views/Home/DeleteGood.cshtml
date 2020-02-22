@@ -38,6 +38,14 @@
 		<dd>
 			@Html.DisplayFor(model => model.Qyantity)
 		</dd>
+		<dt>
+			@Html.DisplayName("Доставщик")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.TransportationDTO.TitleTransport)
+			@*@Html.LabelFor(model => model.TransportationId, $"{ViewBag.Company}")*@
+		</dd>
 	</dl>
 
 	@using (Html.BeginForm())

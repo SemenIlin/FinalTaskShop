@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAShop.WEB.Models.ForGood;
+using System;
 
 namespace BLShop.WEB.ModelsDTO.ForGood
 {
@@ -10,6 +11,7 @@ namespace BLShop.WEB.ModelsDTO.ForGood
         public DateTime DateOfRepair { get; set; }
         public decimal CostOfRepair { get; set; }
 
+        public Transportation Transportation { get; set; }
         public int TransportationId { get; set; }
     }
 }

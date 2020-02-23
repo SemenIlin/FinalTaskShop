@@ -8,7 +8,7 @@ namespace DAShop.WEB.Configuration.ForEmployee
     {
         public void Configure(EntityTypeBuilder<SickLeave> builder)
         {
-            builder.ToTable("Sick Leave");
+            builder.ToTable("SickLeave");
 
             builder.HasKey(x => x.Id);
             builder.Property(x => x.StartOfTheSickLeave).IsRequired();

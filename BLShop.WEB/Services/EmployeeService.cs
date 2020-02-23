@@ -132,7 +132,7 @@ namespace BLShop.WEB.Services
             sickLeaves.Update(sickLeave);
         }
 
-        public IEnumerable<PositionDTO> GetPosition()
+        public IEnumerable<PositionDTO> GetPositions()
         {
             return positions.GetAll().ToListPositionDTO();
         }

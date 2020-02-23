@@ -1,12 +1,12 @@
 ﻿using BLShop.WEB.ModelsDTO.ForGood;
 using FinalTaskShop.ViewModels.ForGood;
 using System.Collections.Generic;
-using BLShop.WEB.Infrastructure;
 using FinalTaskShop.ViewModels.ForRentalSpaces;
 using BLShop.WEB.Models.ForRentalSpaces;
 using BLShop.WEB.ModelsDTO.ForEmployee;
 using FinalTaskShop.ViewModels.ForEmployee;
 using BLShop.WEB.Models.ForEmployee;
+using System.Linq;
 
 namespace FinalTaskShop.Infrastructure
 {
@@ -28,14 +28,7 @@ namespace FinalTaskShop.Infrastructure
 
         public static IEnumerable<GoodViewModel> ToListGoodViewModel(this IEnumerable<GoodDTO> goodDTOs)
         {
-            List<GoodViewModel>  goodViewModels = new List<GoodViewModel>(4);  
-
-            foreach (var goodDTO in goodDTOs)
-            {
-                goodViewModels.Add(goodDTO.ToGoodViewModel());
-            }
-
-            return goodViewModels;          
+            return goodDTOs.Select(goodDTO=>goodDTO.ToGoodViewModel());          
         }
 
         public static GoodViewModel ToGoodViewModel(this GoodDTO goodDTO)
@@ -66,14 +59,7 @@ namespace FinalTaskShop.Infrastructure
 
         public static IEnumerable<TransportationViewModel> ToListTransposrtationViewModel(this IEnumerable<TransportationDTO> transportationDTOs )
         {
-            List<TransportationViewModel> transportationViewModels = new List<TransportationViewModel>(4);
-
-            foreach (var transportationDTO in transportationDTOs)
-            {
-                transportationViewModels.Add(transportationDTO.ToTransportationViewModel());
-            }
-
-            return transportationViewModels;
+            return transportationDTOs.Select(transportationDTO=>transportationDTO.ToTransportationViewModel());
         }
 
         public static TransportationViewModel ToTransportationViewModel(this TransportationDTO transportationDTO)
@@ -103,14 +89,7 @@ namespace FinalTaskShop.Infrastructure
 
         public static IEnumerable<RepairViewModel> ToListRepairViewModel(this IEnumerable<RepairDTO> repairDTOs)
         {
-            List<RepairViewModel> repairViewModels = new List<RepairViewModel>(4);
-
-            foreach (var repairDTO in repairDTOs)
-            {
-                repairViewModels.Add(repairDTO.ToRepairViewModel());
-            }
-
-            return repairViewModels;
+            return repairDTOs.Select(repairDTO => repairDTO.ToRepairViewModel());
         }
 
         public static RepairViewModel ToRepairViewModel(this RepairDTO repairDTO)
@@ -139,14 +118,7 @@ namespace FinalTaskShop.Infrastructure
 
         public static IEnumerable<RentalSpaceViewModel> ToListRentalSpaceViewModel(this IEnumerable<RentalSpaceDTO> rentalSpaceDTOs)
         {
-            List<RentalSpaceViewModel> rentalSpaceViewModels = new List<RentalSpaceViewModel>(4);
-
-            foreach (var rentalSpaceDTO in rentalSpaceDTOs)
-            {
-                rentalSpaceViewModels.Add(rentalSpaceDTO.ToRentalSpaceViewModel());
-            }
-
-            return rentalSpaceViewModels;
+            return rentalSpaceDTOs.Select(rentalSpace=>rentalSpace.ToRentalSpaceViewModel());
         }
 
         public static RentalSpaceViewModel ToRentalSpaceViewModel(this RentalSpaceDTO rentalSpaceDTO)
@@ -174,14 +146,7 @@ namespace FinalTaskShop.Infrastructure
 
         public static IEnumerable<BonusOrFineViewModel> ToListBonusOrFineViewModel(this IEnumerable<BonusOrFineDTO> bonusOrFineDTOs)
         {
-            List <BonusOrFineViewModel> bonusOrFineViewModels = new List<BonusOrFineViewModel>(4);
-
-            foreach (var bonusOrFineDTO in bonusOrFineDTOs)
-            {
-                bonusOrFineViewModels.Add(bonusOrFineDTO.ToBonusOrFineViewModel());
-            }
-
-            return bonusOrFineViewModels;
+            return bonusOrFineDTOs.Select(bonusOrFineDTO=>bonusOrFineDTO.ToBonusOrFineViewModel());
         }
 
         public static BonusOrFineViewModel ToBonusOrFineViewModel(this BonusOrFineDTO bonusOrFineDTO)
@@ -211,14 +176,7 @@ namespace FinalTaskShop.Infrastructure
 
         public static IEnumerable<EmployeeViewModel> ToListEmployeeViewModels(this IEnumerable<EmployeeDTO> employeeDTOs)
         {
-            List<EmployeeViewModel> employeeVeiwModels = new List<EmployeeViewModel>(4);
-
-            foreach (var employeeDTO in employeeDTOs)
-            {
-                employeeVeiwModels.Add(employeeDTO.ToEmployeeViewModel());
-            }
-
-            return employeeVeiwModels;
+            return employeeDTOs.Select(employeeDTO=>employeeDTO.ToEmployeeViewModel());
         }
 
         public static EmployeeViewModel ToEmployeeViewModel(this EmployeeDTO employeeDTO)
@@ -246,14 +204,7 @@ namespace FinalTaskShop.Infrastructure
 
         public static IEnumerable<PositionViewModel> ToListPositionViewModel(this IEnumerable<PositionDTO> positionDTOs)
         {
-            List<PositionViewModel> positionViewModels = new List<PositionViewModel>(4);
-
-            foreach (var positionDTO in positionDTOs)
-            {
-                positionViewModels.Add(positionDTO.ToPositionViewModel());
-            }
-
-            return positionViewModels;
+            return positionDTOs.Select(positionDTO=>positionDTO.ToPositionViewModel());
         }
 
         public static PositionViewModel ToPositionViewModel(this PositionDTO positionDTO)
@@ -280,14 +231,7 @@ namespace FinalTaskShop.Infrastructure
 
         public static IEnumerable<SickLeaveViewModel> ToListSickLeaveViewModel(this IEnumerable<SickLeaveDTO> sickLeaveDTOs)
         {
-            List<SickLeaveViewModel> sickLeaveViewModels = new List<SickLeaveViewModel>(4);
-
-            foreach (var sickLeaveDTO in sickLeaveDTOs)
-            {
-                sickLeaveViewModels.Add(sickLeaveDTO.ToSickLeaveViewModel());
-            }
-
-            return sickLeaveViewModels;
+            return sickLeaveDTOs.Select(sickLeave => sickLeave.ToSickLeaveViewModel());           
         }
 
         public static SickLeaveViewModel ToSickLeaveViewModel(this SickLeaveDTO sickLeaveDTO)

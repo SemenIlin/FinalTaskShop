@@ -1,0 +1,53 @@
+﻿@model IEnumerable<FinalTaskShop.ViewModels.ForEmployee.SickLeaveViewModel>
+
+@{
+	ViewBag.Title = "ListSickLeaves";
+}
+
+<h2>Больничные</h2>
+
+<p>
+	@Html.ActionLink("Добавить больничный", "CreateSickLeave")
+</p>
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayName("Начало больничного")
+		</th>
+		<th>
+			@Html.DisplayName("Окончание больничного")
+		</th>
+		<th>
+			@Html.DisplayName("Денежная компенсация")
+		</th>
+
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.StartOfTheSickLeave)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.FinishOfTheSickLeave)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.MonetaryCompensation)
+			</td>
+
+			<td>
+				@Html.ActionLink("Подробнее", "DetailsSickLeave", new { id = item.Id }) |
+				@Html.ActionLink("Редактировать", "EditSickLeave", new { id = item.Id }) |
+				@Html.ActionLink("Удалить", "DeleteSickLeave", new { id = item.Id })
+			</td>
+		</tr>
+	}
+
+</table>
+
+<div>
+	@Html.ActionLink("Назад", "Index")
+</div>
+

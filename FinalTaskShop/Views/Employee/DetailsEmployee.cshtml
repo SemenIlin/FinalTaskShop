@@ -1,0 +1,16 @@
+﻿@model FinalTaskShop.ViewModels.ForEmployee.EmployeeViewModel
+
+<hr />
+<dl class="dl-horizontal">
+	<dt>
+		@Html.DisplayName("Должность")
+	</dt>
+	<dd>
+		@Html.DisplayFor(model => model.PositionId);
+	</dd>
+</dl>
+
+<div>
+	@Html.ActionLink("К списку", "ListEmployees")
+</div>
+

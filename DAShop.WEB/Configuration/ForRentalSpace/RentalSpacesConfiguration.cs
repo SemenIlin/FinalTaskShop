@@ -8,7 +8,7 @@ namespace DAShop.WEB.Configuration.ForRentalSpace
     {
         public void Configure(EntityTypeBuilder<RentalSpace> builder)
         {
-            builder.ToTable("Rental Space");
+            builder.ToTable("RentalSpace");
 
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Title).IsRequired().HasMaxLength(100);

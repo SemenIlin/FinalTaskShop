@@ -6,6 +6,7 @@ using DAShop.WEB.Models.ForEmployee;
 using DAShop.WEB.Models.ForGood;
 using DAShop.WEB.Models.ForRentalSpaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BLShop.WEB.Infrastructure
 {
@@ -27,14 +28,7 @@ namespace BLShop.WEB.Infrastructure
 
         public static IEnumerable<GoodDTO> ToListGoodDTO(this IEnumerable<Good> goods)
         {
-            List<GoodDTO> goodDTOs = new List<GoodDTO>(4);  
-
-            foreach (var good in goods)
-            {
-                goodDTOs.Add(good.ToGoodDTO());
-            }
-
-            return goodDTOs;          
+            return goods.Select(good => good.ToGoodDTO());          
         }
 
         public static Good ToGood(this GoodDTO goodDTO)
@@ -65,14 +59,7 @@ namespace BLShop.WEB.Infrastructure
 
         public static IEnumerable<TransportationDTO> ToListTransposrtationDTO(this IEnumerable<Transportation> transportations )
         {
-            List<TransportationDTO> transportationDTOs = new List<TransportationDTO>(4);
-
-            foreach (var transportation in transportations)
-            {
-                transportationDTOs.Add(transportation.ToTransportationDTO());
-            }
-
-            return transportationDTOs;
+            return transportations.Select(transportation=>transportation.ToTransportationDTO());
         }
 
         public static Transportation ToTransportation(this TransportationDTO transportationDTO)
@@ -102,14 +89,7 @@ namespace BLShop.WEB.Infrastructure
 
         public static IEnumerable<RepairDTO> ToListRepairDTO(this IEnumerable<Repair> repairs)
         {
-            List<RepairDTO> repairDTOs = new List<RepairDTO>(4);
-
-            foreach (var repair in repairs)
-            {
-                repairDTOs.Add(repair.ToRepairDTO());
-            }
-
-            return repairDTOs;
+            return repairs.Select(repair =>repair.ToRepairDTO());
         }
 
         public static Repair ToRepair(this RepairDTO repairDTO)
@@ -138,14 +118,7 @@ namespace BLShop.WEB.Infrastructure
 
         public static IEnumerable<RentalSpaceDTO> ToListRentalSpaceDTO(this IEnumerable<RentalSpace> rentalSpaces)
         {
-            List<RentalSpaceDTO> rentalSpaceDTOs = new List<RentalSpaceDTO>(4);
-
-            foreach (var rentalSpace in rentalSpaces)
-            {
-                rentalSpaceDTOs.Add(rentalSpace.ToRentalSpaceDTO());
-            }
-
-            return rentalSpaceDTOs;
+            return rentalSpaces.Select(rentalSpace => rentalSpace.ToRentalSpaceDTO());
         }
 
         public static RentalSpace ToRentalSpace(this RentalSpaceDTO rentalSpaceDTO)
@@ -173,14 +146,7 @@ namespace BLShop.WEB.Infrastructure
 
         public static IEnumerable<BonusOrFineDTO> ToListBonusOrFineDTO(this IEnumerable<BonusOrFine> bonusOrFines)
         {
-            List<BonusOrFineDTO> bonusOrFineDTOs = new List<BonusOrFineDTO>(4);
-
-            foreach (var bonusOrFine in bonusOrFines)
-            {
-                bonusOrFineDTOs.Add(bonusOrFine.ToBonusOrFineDTO());
-            }
-
-            return bonusOrFineDTOs;
+            return bonusOrFines.Select(bonusOrFine=>bonusOrFine.ToBonusOrFineDTO());
         }
 
         public static BonusOrFine ToBonusOrFine(this BonusOrFineDTO bonusOrFineDTO)
@@ -210,14 +176,7 @@ namespace BLShop.WEB.Infrastructure
 
         public static IEnumerable<EmployeeDTO> ToListEmployeeDTO(this IEnumerable<Employee> employees)
         {
-            List<EmployeeDTO> employeeDTOs = new List<EmployeeDTO>(4);
-
-            foreach (var employee in employees)
-            {
-                employeeDTOs.Add(employee.ToEmployeeDTO());
-            }
-
-            return employeeDTOs;
+            return employees.Select(employee => employee.ToEmployeeDTO());
         }
 
         public static Employee ToEmployee(this EmployeeDTO employeeDTO)
@@ -245,14 +204,7 @@ namespace BLShop.WEB.Infrastructure
 
         public static IEnumerable<PositionDTO> ToListPositionDTO(this IEnumerable<Position> positions)
         {
-            List<PositionDTO> positionDTOs = new List<PositionDTO>(4);
-
-            foreach (var position in positions)
-            {
-                positionDTOs.Add(position.ToPositionDTO());
-            }
-
-            return positionDTOs;
+            return positions.Select(position => position.ToPositionDTO());
         }
 
         public static Position ToPosition(this PositionDTO positionDTO)
@@ -280,14 +232,7 @@ namespace BLShop.WEB.Infrastructure
 
         public static IEnumerable<SickLeaveDTO> ToListSickLeaveDTO(this IEnumerable<SickLeave> sickLeaves)
         {
-            List<SickLeaveDTO> sickLeaveDTOs = new List<SickLeaveDTO>(4);
-
-            foreach (var sickLeave in sickLeaves)
-            {
-                sickLeaveDTOs.Add(sickLeave.ToSickLeaveDTO());
-            }
-
-            return sickLeaveDTOs;
+            return sickLeaves.Select(sickLeave=>sickLeave.ToSickLeaveDTO());
         }
 
         public static SickLeave ToSickLeave(this SickLeaveDTO sickLeaveDTO)

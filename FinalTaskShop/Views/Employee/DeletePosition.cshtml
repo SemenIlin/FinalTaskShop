@@ -1,0 +1,36 @@
+﻿@model FinalTaskShop.ViewModels.ForEmployee.PositionViewModel
+
+@{
+	ViewBag.Title = "DeletePosition";
+}
+
+<h3>Вы точно хотите удалить эту должность?</h3>
+<div>
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayName("Название")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Title)
+		</dd>
+
+		<dt>
+			@Html.DisplayName("Оклад")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.MinSalary)
+		</dd>	
+	</dl>
+
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+
+		<div class="form-actions no-color">
+			<input type="submit" value="Удалить" class="btn btn-default" /> |
+			@Html.ActionLink("Назад", "ListPositions")
+		</div>
+	}
+</div>

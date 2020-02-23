@@ -25,7 +25,7 @@ namespace BLShop.WEB.Interfaces
         void UpdateSickLeave(SickLeaveDTO sickLeave);
 
         void CreatePosition(PositionDTO position);
-        IEnumerable<PositionDTO> GetPosition();
+        IEnumerable<PositionDTO> GetPositions();
         PositionDTO GetPosition(int id);
         void DeletePosition(int id);
         void UpdatePosition(PositionDTO position);

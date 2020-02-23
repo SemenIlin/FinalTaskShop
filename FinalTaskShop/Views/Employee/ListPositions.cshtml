@@ -1,0 +1,45 @@
+﻿@model IEnumerable<FinalTaskShop.ViewModels.ForEmployee.PositionViewModel>
+
+@{
+	ViewBag.Title = "ListPositions";
+}
+
+<h2>Список должностей</h2>
+
+<p>
+	@Html.ActionLink("Добавить должность", "CreatePosition")
+</p>
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayName("Название")
+		</th>
+		<th>
+			@Html.DisplayName("Оклад")
+		</th>
+		
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Title)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.MinSalary)
+			</td>
+	
+			<td>
+				@Html.ActionLink("Редактировать", "EditPosition", new { id = item.Id }) |
+				@Html.ActionLink("Удалить", "DeletePosition", new { id = item.Id })
+			</td>
+		</tr>
+	}
+
+</table>
+
+<div>
+	@Html.ActionLink("Назад", "Index")
+</div>

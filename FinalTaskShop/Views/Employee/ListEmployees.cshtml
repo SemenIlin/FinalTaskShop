@@ -1,0 +1,57 @@
+﻿@model IEnumerable<FinalTaskShop.ViewModels.ForEmployee.EmployeeViewModel>
+
+@{
+	ViewBag.Title = "ListEmployees";
+}
+
+<h2>Список работников</h2>
+
+<p>
+	@Html.ActionLink("Добавить работника", "CreateEmployee")
+</p>
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayName("Имя")
+		</th>
+		<th>
+			@Html.DisplayName("Фамилия")
+		</th>
+		<th>
+			@Html.DisplayName("Отчество")
+		</th>
+		<th>
+			@Html.DisplayName("День рождение")
+		</th>		
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.SurName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Patronymic)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Birthday)
+			</td>			
+			<td>
+				@Html.ActionLink("Подробнее", "DetailsEmployee", new { id = item.Id }) |
+				@Html.ActionLink("Редактировать", "EditEmployee", new { id = item.Id }) |
+				@Html.ActionLink("Удалить", "DeleteEmployee", new { id = item.Id })
+			</td>
+		</tr>
+	}
+
+</table>
+
+<div>
+	@Html.ActionLink("Назад", "Index")
+</div>
+

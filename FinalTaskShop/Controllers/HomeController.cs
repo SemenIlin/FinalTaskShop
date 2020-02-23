@@ -24,16 +24,15 @@ namespace FinalTaskShop.Controllers
         [HttpGet]
         public ActionResult ListGoods()
         {
-            var listGoods = goodService.GetGoods().ToListGoodViewModel();
+            var listGoodsViewModel = goodService.GetGoods().ToListGoodViewModel();
          
-            return View(listGoods);
+            return View(listGoodsViewModel);
         }
 
         [HttpGet]
         public ActionResult GoodCreate()
         {
-            var transportationCompanies = goodService.GetTransportations().ToListTransposrtationViewModel();
-            ViewBag.Companies = new SelectList(transportationCompanies, "Id", "TitleTransport");
+            GetSelectListOfCompanies();
             return View();
         }
 
@@ -51,14 +50,13 @@ namespace FinalTaskShop.Controllers
         {
             try
             {
-                var good = goodService.GetGood(id.Value);
-                //ViewBag.Company = goodService.GetTransportation(good.TransportationId).ToTransportationViewModel().TitleTransport;
-                
-                return View(good.ToGoodViewModel());
+                var goodViewModel = goodService.GetGood(id.Value).ToGoodViewModel();
+
+                return View(goodViewModel);
             }
             catch
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
         }
 
@@ -67,13 +65,13 @@ namespace FinalTaskShop.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
 
             var good = goodService.GetGood(id.Value);
             if (good == null)
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
 
             goodService.DeleteGood(id.Value);
@@ -86,18 +84,15 @@ namespace FinalTaskShop.Controllers
         {
             try
             {
-                var transportationCompanies = goodService.GetTransportations().ToListTransposrtationViewModel();
-                ViewBag.Companies = new SelectList(transportationCompanies, "Id", "TitleTransport");
+                GetSelectListOfCompanies();
 
-                var good = goodService.GetGood(id.Value);
-                var goodViewModel = good.ToGoodViewModel();
-
+                var goodViewModel = goodService.GetGood(id.Value).ToGoodViewModel();
 
                 return View(goodViewModel);
             }
             catch
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
         }
 
@@ -128,8 +123,8 @@ namespace FinalTaskShop.Controllers
         [HttpGet]
         public ActionResult ListTransportations()
         {
-            var listTranportations = goodService.GetTransportations().ToListTransposrtationViewModel();
-            return View(listTranportations);
+            var listTranportationsViewModel = goodService.GetTransportations().ToListTransposrtationViewModel();
+            return View(listTranportationsViewModel);
         }
 
         [HttpGet]
@@ -137,12 +132,12 @@ namespace FinalTaskShop.Controllers
         {
             try
             {
-                var transportation = goodService.GetTransportation(id.Value);
-                return View(transportation.ToTransportationViewModel());
+                var transportationViewModel = goodService.GetTransportation(id.Value).ToTransportationViewModel();
+                return View(transportationViewModel);
             }
             catch
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
         }
 
@@ -151,13 +146,13 @@ namespace FinalTaskShop.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
 
             var transportation = goodService.GetTransportation(id.Value);
             if (transportation == null)
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
 
             goodService.DeleteTransportation(id.Value);
@@ -170,16 +165,16 @@ namespace FinalTaskShop.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
-            var transportation = goodService.GetTransportation(id.Value);
+            var transportationViewModel = goodService.GetTransportation(id.Value).ToTransportationViewModel();
 
-            if (transportation == null)
+            if (transportationViewModel == null)
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
 
-            return View(transportation);            
+            return View(transportationViewModel);            
         }
 
         [HttpGet]
@@ -187,14 +182,13 @@ namespace FinalTaskShop.Controllers
         {
             try
             {
-                var transportation = goodService.GetTransportation(id.Value);
-                var transportationViewModel = transportation.ToTransportationViewModel();
-
+                var transportationViewModel = goodService.GetTransportation(id.Value).ToTransportationViewModel();
+                
                 return View(transportationViewModel);
             }
             catch
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
         }
 
@@ -210,8 +204,7 @@ namespace FinalTaskShop.Controllers
         [HttpGet]
         public ActionResult CreateRepair()
         {
-            var transportationCompanies = goodService.GetTransportations().ToListTransposrtationViewModel();
-            ViewBag.Companies = new SelectList(transportationCompanies, "Id", "TitleTransport");
+            GetSelectListOfCompanies();
 
             return View();
         }
@@ -228,8 +221,8 @@ namespace FinalTaskShop.Controllers
         [HttpGet]
         public ActionResult ListRepairs()
         {
-            var listRepairs = goodService.GetRepairs().ToListRepairViewModel();
-            return View(listRepairs);
+            var listRepairsViewModel = goodService.GetRepairs().ToListRepairViewModel();
+            return View(listRepairsViewModel);
         }
 
         [HttpGet]
@@ -237,13 +230,13 @@ namespace FinalTaskShop.Controllers
         {
             try
             {
-                var repair = goodService.GetRepair(id.Value);
+                var repairViewModel = goodService.GetRepair(id.Value).ToRepairViewModel();
 
-                return View(repair.ToRepairViewModel());
+                return View(repairViewModel);
             }
             catch
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }     
         }
 
@@ -252,13 +245,13 @@ namespace FinalTaskShop.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
 
             var repair = goodService.GetRepair(id.Value);
             if (repair == null)
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
 
             goodService.DeleteRepair(id.Value);
@@ -271,17 +264,15 @@ namespace FinalTaskShop.Controllers
         {
             try
             {
-                var repair = goodService.GetRepair(id.Value);
-                var repairViewModel = repair.ToRepairViewModel();
-
-                var transportationCompanies = goodService.GetTransportations().ToListTransposrtationViewModel();
-                ViewBag.Companies = new SelectList(transportationCompanies, "Id", "TitleTransport");
+                var repairViewModel = goodService.GetRepair(id.Value).ToRepairViewModel();
+                
+                GetSelectListOfCompanies();
 
                 return View(repairViewModel);
             }
             catch
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
         }
 
@@ -292,6 +283,15 @@ namespace FinalTaskShop.Controllers
             goodService.UpdateRepair(repairDTO);
 
             return RedirectToAction("ListRepairs");
+        }
+
+        [NonAction]
+        public SelectList GetSelectListOfCompanies()
+        {
+            var transportationCompanies = goodService.GetTransportations().ToListTransposrtationViewModel();
+            ViewBag.Companies = new SelectList(transportationCompanies, "Id", "TitleTransport");
+
+            return ViewBag.Companies;
         }
     }
 }

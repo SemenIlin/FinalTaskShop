@@ -8,7 +8,7 @@ namespace DAShop.WEB.Configuration.ForEmployee
     {
         public void Configure(EntityTypeBuilder<BonusOrFine> builder)
         {
-            builder.ToTable("Bonus Or Fine");
+            builder.ToTable("BonusOrFine");
 
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Title).IsRequired().HasMaxLength(100);

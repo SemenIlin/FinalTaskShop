@@ -37,8 +37,8 @@ namespace FinalTaskShop.Controllers
         [HttpGet]
         public ActionResult ListRentalSpaces()
         {
-            var listRentalSpaces = rentalSpaceService.GetRentalSpaces().ToListRentalSpaceViewModel();
-            return View(listRentalSpaces);
+            var listRentalSpacesViewModel = rentalSpaceService.GetRentalSpaces().ToListRentalSpaceViewModel();
+            return View(listRentalSpacesViewModel);
         }
 
         [HttpGet]
@@ -46,13 +46,13 @@ namespace FinalTaskShop.Controllers
         {
             try
             {
-                var rentalSpace = rentalSpaceService.GetRentalSpace(id.Value);
+                var rentalSpaceViewModel = rentalSpaceService.GetRentalSpace(id.Value).ToRentalSpaceViewModel();
 
-                return View(rentalSpace.ToRentalSpaceViewModel());
+                return View(rentalSpaceViewModel);
             }
             catch
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
         }
         
@@ -61,13 +61,13 @@ namespace FinalTaskShop.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
 
             var rentalSpace = rentalSpaceService.GetRentalSpace(id.Value);
             if (rentalSpace == null)
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
 
             rentalSpaceService.DeleteRentalSpace(id.Value);
@@ -80,14 +80,13 @@ namespace FinalTaskShop.Controllers
         {
             try
             {
-                var rentalSpace = rentalSpaceService.GetRentalSpace(id.Value);
-                var rentalSpaceViewModel = rentalSpace.ToRentalSpaceViewModel();
-
+                var rentalSpaceViewModel = rentalSpaceService.GetRentalSpace(id.Value).ToRentalSpaceViewModel();
+                
                 return View(rentalSpaceViewModel);
             }
             catch
             {
-                return RedirectToAction("NotFound");
+                return NotFound();
             }
         }
 

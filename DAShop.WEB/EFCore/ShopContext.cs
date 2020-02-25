@@ -1,6 +1,4 @@
-﻿using DAShop.WEB.Configuration.ForEmployee;
-using DAShop.WEB.Configuration.ForGood;
-using DAShop.WEB.Models.ForEmployee;
+﻿using DAShop.WEB.Models.ForEmployee;
 using DAShop.WEB.Models.ForGood;
 using DAShop.WEB.Models.ForRentalSpaces;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +7,9 @@ namespace DAShop.WEB.EFCore
 {
     public class ShopContext : DbContext
     {
+        public DbSet<Departament> Departaments { get; set; }
+        public DbSet<PaymentAccount> PaymentAccounts { get; set; }
+
         public DbSet<Employee> Employees { get; set; }
         public DbSet<BonusOrFine> BonusOrFines { get; set; }
         public DbSet<Position> Positions { get; set; }

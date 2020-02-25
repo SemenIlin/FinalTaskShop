@@ -30,6 +30,12 @@ namespace BLShop.WEB.Interfaces
         void DeletePosition(int id);
         void UpdatePosition(PositionDTO position);
 
-        void Dispose();
+        void CreateDepartament(DepartamentDTO departament);
+        IEnumerable<DepartamentDTO> GetDepartaments();
+        DepartamentDTO GetDepartament(int id);
+        void DeleteDepartament(int id);
+        void UpdateDepartament(DepartamentDTO departament);
+
+        void Dispose();//?
     }
 }

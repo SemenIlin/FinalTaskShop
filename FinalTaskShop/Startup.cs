@@ -45,6 +45,8 @@ namespace FinalTaskShop
             services.AddScoped<IRepository<BonusOrFine>, BonusOrFineRepository>();
             services.AddScoped<IRepository<Position>, PositionRepository>();
             services.AddScoped<IRepository<SickLeave>, SickLeaveRepository>();
+            services.AddScoped<IRepository<Departament>, DepartamentRepository>();
+            services.AddScoped<IRepository<PaymentAccount>, PaymentAccountRepository>();
 
             services.AddScoped<IRepository<Good>, GoodRepository>();
             services.AddScoped<IRepository<Repair>, RepairRepository>();

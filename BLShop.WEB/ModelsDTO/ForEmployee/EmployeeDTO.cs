@@ -11,7 +11,8 @@ namespace BLShop.WEB.ModelsDTO.ForEmployee
         public string Patronymic { get; set; }
 
         public DateTime Birthday { get; set; }
-
+        
         public int PositionId { get; set; }
+        public int DepartamentId { get; set; }
     }
 }

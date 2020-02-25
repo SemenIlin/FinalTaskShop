@@ -15,18 +15,21 @@ namespace BLShop.WEB.Services
         private readonly IRepository<BonusOrFine> bonusOfFines;
         private readonly IRepository<Position> positions;
         private readonly IRepository<SickLeave> sickLeaves;
+        private readonly IRepository<Departament> departaments;
 
         public EmployeeService(
             IRepository<Employee> employees,
             IRepository<BonusOrFine> bonusOfFines,
             IRepository<Position> positions,
-            IRepository<SickLeave> sickLeaves
+            IRepository<SickLeave> sickLeaves,
+            IRepository<Departament> departaments
             )
         {
             this.employees = employees;
             this.bonusOfFines = bonusOfFines;
             this.positions = positions;
             this.sickLeaves = sickLeaves;
+            this.departaments = departaments;
         }
 
         public void AddBonusOrFine(BonusOrFineDTO bonusOrFine)
@@ -75,7 +78,7 @@ namespace BLShop.WEB.Services
 
         public void Dispose()
         {
-            //Database.Dispose();
+             // Dispose();
         }
 
         public void DeleteEmployee(int id)
@@ -151,6 +154,32 @@ namespace BLShop.WEB.Services
         {
             var position = positionDTO.ToPosition();
             positions.Update(position);
+        }
+
+        public void CreateDepartament(DepartamentDTO departamentDTO)
+        {
+            var departament = departamentDTO.ToDepartament();
+            departaments.Create(departament);
+        }
+
+        public IEnumerable<DepartamentDTO> GetDepartaments()
+        {
+            return departaments.GetAll().ToListDepartamentDTO();
+        }
+
+        public DepartamentDTO GetDepartament(int id)
+        {
+            return departaments.Get(id).ToDepartamentDTO();
+        }
+
+        public void DeleteDepartament(int id)
+        {
+            departaments.Delete(id);
+        }
+
+        public void UpdateDepartament(DepartamentDTO departament)
+        {
+            departaments.Update(departament.ToDepartament());          
         }
     }
 }

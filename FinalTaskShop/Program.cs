@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using DAShop.WEB.EFCore;
+using DAShop.WEB.DataForBD;
 
 namespace FinalTaskShop
 {
@@ -19,7 +20,7 @@ namespace FinalTaskShop
                 try
                 {
                     var context = services.GetRequiredService<ShopContext>();
-                    //SampleData.Initialize(context);
+                    DefaultPositions.Initialize(context);
                 }
                 catch (Exception ex)
                 {

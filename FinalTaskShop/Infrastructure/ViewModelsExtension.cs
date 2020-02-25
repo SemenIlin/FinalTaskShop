@@ -244,6 +244,48 @@ namespace FinalTaskShop.Infrastructure
                 MonetaryCompensation = sickLeaveDTO.MonetaryCompensation,
                 EmployeeId = sickLeaveDTO.EmployeeId
             };
+        }        
+
+        public static IEnumerable<PaymentAccountViewModel> ToListPaymentAccountViewModel(this IEnumerable<PaymentAccountDTO> paymentAccountDTOs)
+        {
+            return paymentAccountDTOs.Select(paymentAccount => paymentAccount.ToPaymentAccountViewModel());
+        }
+
+        public static PaymentAccountViewModel ToPaymentAccountViewModel(this PaymentAccountDTO paymentAccountDTO)
+        {
+            return new PaymentAccountViewModel
+            {
+                Id = paymentAccountDTO.Id,
+                Payday = paymentAccountDTO.Payday,
+                Salary = paymentAccountDTO.Salary,
+                Name = paymentAccountDTO.Employee.Name,
+                SurName = paymentAccountDTO.Employee.SurName,
+                Patronymic = paymentAccountDTO.Employee.Patronymic,
+                PositionId = paymentAccountDTO.Employee.PositionId
+            };
+        }
+
+        public static DepartamentDTO ToDepartamentDTO(this DepartamentViewModel departamentViewModel)
+        {
+            return new DepartamentDTO
+            {
+                Id = departamentViewModel.Id,
+                Title = departamentViewModel.Title
+            };
+        }
+
+        public static IEnumerable<DepartamentViewModel> ToListDepartamentViewModel(this IEnumerable<DepartamentDTO> departamentDTOs)
+        {
+            return departamentDTOs.Select(departament => departament.ToDepartamentViewModel());
+        }
+
+        public static DepartamentViewModel ToDepartamentViewModel(this DepartamentDTO departamentDTO)
+        {
+            return new DepartamentViewModel
+            {
+                Id = departamentDTO.Id,
+                Title = departamentDTO.Title,
+            };
         }
     }
 }

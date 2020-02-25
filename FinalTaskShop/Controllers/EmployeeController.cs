@@ -15,6 +15,7 @@ namespace FinalTaskShop.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService employeeService;
+        //private readonly IEmployeeService employeeService;
 
         public EmployeeController(IEmployeeService employeeService)
         {
@@ -39,6 +40,7 @@ namespace FinalTaskShop.Controllers
         public IActionResult CreateEmployee()
         {
             GetSelectListOfPositions();
+            GetSelectListOfDepartaments();
             return View();
         }
 
@@ -91,6 +93,7 @@ namespace FinalTaskShop.Controllers
             try
             {
                 GetSelectListOfPositions();
+                GetSelectListOfDepartaments();
 
                 var employeeViewModel = employeeService.GetEmployee(id.Value).ToEmployeeViewModel();
                 
@@ -428,6 +431,17 @@ namespace FinalTaskShop.Controllers
 
             return ViewBag.Employees;
         }
+
+
+        [NonAction]
+        public SelectList GetSelectListOfDepartaments()
+        {
+            var departaments = employeeService.GetDepartaments().ToListDepartamentViewModel();
+            ViewBag.Departaments = new SelectList(departaments, "Id", "Title");
+
+            return ViewBag.Departaments;
+        }
+        
 
     }
 }

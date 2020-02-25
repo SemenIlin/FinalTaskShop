@@ -170,7 +170,8 @@ namespace BLShop.WEB.Infrastructure
                 SurName = employee.SurName,
                 Patronymic = employee.Patronymic,
                 Birthday = employee.Birthday,
-                PositionId = employee.PositionId
+                PositionId = employee.PositionId,
+                DepartamentId = employee.DepartamentId
             };
         }
 
@@ -188,7 +189,9 @@ namespace BLShop.WEB.Infrastructure
                 SurName = employeeDTO.SurName,
                 Patronymic = employeeDTO.Patronymic,
                 Birthday = employeeDTO.Birthday,
-                PositionId = employeeDTO.PositionId
+                PositionId = employeeDTO.PositionId,
+                DepartamentId = employeeDTO.DepartamentId
+                
             };
         }
 
@@ -244,6 +247,58 @@ namespace BLShop.WEB.Infrastructure
                 FinishOfTheSickLeave = sickLeaveDTO.FinishOfTheSickLeave,
                 MonetaryCompensation = sickLeaveDTO.MonetaryCompensation,
                 EmployeeId = sickLeaveDTO.EmployeeId
+            };
+        }
+
+        public static PaymentAccountDTO ToPaymentAccountDTO(this PaymentAccount paymentAccount)
+        {
+            return new PaymentAccountDTO
+            {
+                Id = paymentAccount.Id,
+                Payday = paymentAccount.Payday,
+                Salary = paymentAccount.Salary,
+                Employee = paymentAccount.Employee,
+                EmployeeId = paymentAccount.EmployeeId
+            };
+        }
+
+        public static IEnumerable<PaymentAccountDTO> ToListPaymentAccountDTO(this IEnumerable<PaymentAccount> paymentAccounts)
+        {
+            return paymentAccounts.Select(paymentAccount => paymentAccount.ToPaymentAccountDTO());
+        }
+
+        public static PaymentAccount ToPaymentAccount(this PaymentAccountDTO paymentAccountDTO)
+        {
+            return new PaymentAccount
+            {
+                Id = paymentAccountDTO.Id,
+                Payday = paymentAccountDTO.Payday,
+                Salary = paymentAccountDTO.Salary,
+                Employee = paymentAccountDTO.Employee,
+                EmployeeId = paymentAccountDTO.EmployeeId
+            };
+        }
+
+        public static DepartamentDTO ToDepartamentDTO(this Departament departament)
+        {
+            return new DepartamentDTO
+            {
+                Id = departament.Id,
+                Title = departament.Title                
+            };
+        }
+
+        public static IEnumerable<DepartamentDTO> ToListDepartamentDTO(this IEnumerable<Departament> departaments)
+        {
+            return departaments.Select(departament => departament.ToDepartamentDTO());
+        }
+
+        public static Departament ToDepartament(this DepartamentDTO departamentDTO)
+        {
+            return new Departament
+            {
+                Id = departamentDTO.Id,
+                Title = departamentDTO.Title,
             };
         }
     }

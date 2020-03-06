@@ -17,7 +17,7 @@ namespace DAShop.WEB.Configuration.ForEmployee
             builder.Property(x => x.Birthday).IsRequired();
 
             builder.HasOne(x => x.Position).WithMany().HasForeignKey(x => x.PositionId);
-            builder.HasOne(x => x.Departament).WithMany().HasForeignKey(x => x.DepartamentIdName);
+            builder.HasOne(x => x.Departament).WithMany().HasForeignKey(x => x.DepartamentId);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace DAShop.WEB.EFCore
         public DbSet<Good> Goods { get; set; }
         public DbSet<Transportation> Transportations { get; set; }
         public DbSet<Repair> Repairs { get; set; }
+        public DbSet<ReportOfSale> ReportsOfSales { get; set; }
 
         public DbSet<RentalSpace> RentalSpaces { get; set; }
 

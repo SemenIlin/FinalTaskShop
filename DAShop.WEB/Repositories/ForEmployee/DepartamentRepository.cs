@@ -30,6 +30,11 @@ namespace DAShop.WEB.Repositories.ForEmployee
             Save();
         }
 
+        public void Dispose()
+        {
+            shop.Dispose();
+        }
+
         public IEnumerable<Departament> Find(Func<Departament, bool> predicate)
         {
             return shop.Departaments.Where(predicate).ToList();

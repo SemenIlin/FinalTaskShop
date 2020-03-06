@@ -1,9 +1,10 @@
 ﻿using BLShop.WEB.ModelsDTO.ForGood;
+using System;
 using System.Collections.Generic;
 
 namespace BLShop.WEB.Interfaces
 {
-    public interface IGoodService
+    public interface IGoodService : IDisposable
     {
         void AddGood(GoodDTO goodDTO);
         IEnumerable<GoodDTO> GetGoods();
@@ -22,7 +23,5 @@ namespace BLShop.WEB.Interfaces
         RepairDTO GetRepair(int id);
         void DeleteRepair(int id);
         void UpdateRepair(RepairDTO repairDTO);
-
-        void Dispose();
     }
 }

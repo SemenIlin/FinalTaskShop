@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BLShop.WEB.Interfaces;
+﻿using BLShop.WEB.Interfaces;
 using FinalTaskShop.Infrastructure;
 using FinalTaskShop.ViewModels.ForEmployee;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace FinalTaskShop.Controllers
 {
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService employeeService;
-        //private readonly IEmployeeService employeeService;
 
         public EmployeeController(IEmployeeService employeeService)
         {
@@ -23,13 +16,13 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        public IActionResult ListEmployees()
+        public ActionResult ListEmployees()
         {
             var listEmployees = employeeService.GetEmployees().ToListEmployeeViewModels();
 
@@ -37,7 +30,7 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateEmployee()
+        public ActionResult CreateEmployee()
         {
             GetSelectListOfPositions();
             GetSelectListOfDepartaments();
@@ -45,16 +38,24 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateEmployee(EmployeeViewModel employeeViewModel)
+        public ActionResult CreateEmployee(EmployeeViewModel employeeViewModel)
         {
-            var employeeDTO = employeeViewModel.ToEmployeeDTO();
-            employeeService.AddEmployee(employeeDTO);
+            if (ModelState.IsValid)
+            {
+                var employeeDTO = employeeViewModel.ToEmployeeDTO();
+                employeeService.AddEmployee(employeeDTO);
 
-            return RedirectToAction("CreateEmployee");
+                return RedirectToAction("CreateEmployee");
+            }
+
+            GetSelectListOfPositions();
+            GetSelectListOfDepartaments();
+
+            return View(employeeViewModel);
         }
 
         [HttpGet]
-        public IActionResult DeleteEmployee(int? id)
+        public ActionResult DeleteEmployee(int? id)
         {
             try
             {
@@ -69,7 +70,7 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpPost, ActionName("DeleteEmployee")]
-        public IActionResult DeleteEmployeeConfirmed(int? id)
+        public ActionResult DeleteEmployeeConfirmed(int? id)
         {
             if (id == null)
             {
@@ -88,7 +89,7 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditEmployee(int? id)
+        public ActionResult EditEmployee(int? id)
         {
             try
             {
@@ -106,7 +107,7 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditEmployee(EmployeeViewModel employeeViewModel)
+        public ActionResult EditEmployee(EmployeeViewModel employeeViewModel)
         {
             var employeeDTO = employeeViewModel.ToEmployeeDTO();
             employeeService.UpdateEmployee(employeeDTO);
@@ -121,18 +122,19 @@ namespace FinalTaskShop.Controllers
             {
                 return NotFound();
             }
-            var employeDTO = employeeService.GetEmployee(id.Value).ToEmployeeViewModel();
-
+            var employeDTO = employeeService.GetEmployee(id.Value).ToEmployeeViewModel();            
             if (employeDTO == null)
             {
                 return NotFound();
             }
 
+            ViewBag.Position = employeeService.GetPosition(employeDTO.PositionId).Title;
+
             return View(employeDTO);
         }
         
         [HttpGet]
-        public IActionResult ListPositions()
+        public ActionResult ListPositions()
         {
             var listPositions = employeeService.GetPositions().ToListPositionViewModel();                
 
@@ -140,22 +142,27 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreatePosition()
+        public ActionResult CreatePosition()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreatePosition(PositionViewModel positionViewModel)
+        public ActionResult CreatePosition(PositionViewModel positionViewModel)
         {
-            var positionDTO = positionViewModel.ToPositionDTO();
-            employeeService.CreatePosition(positionDTO);
+            if (ModelState.IsValid)
+            {
+                var positionDTO = positionViewModel.ToPositionDTO();
+                employeeService.CreatePosition(positionDTO);
 
-            return RedirectToAction("CreatePosition");
+                return RedirectToAction("CreatePosition");
+            }
+
+            return View(positionViewModel);
         }
 
         [HttpGet]
-        public IActionResult DeletePosition(int? id)
+        public ActionResult DeletePosition(int? id)
         {
             try
             {
@@ -170,7 +177,7 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpPost, ActionName("DeletePosition")]
-        public IActionResult DeletePositionConfirmed(int? id)
+        public ActionResult DeletePositionConfirmed(int? id)
         {
             if (id == null)
             {
@@ -189,7 +196,7 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditPosition(int? id)
+        public ActionResult EditPosition(int? id)
         {
             try
             {
@@ -204,7 +211,7 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditPosition(PositionViewModel positionViewModel)
+        public ActionResult EditPosition(PositionViewModel positionViewModel)
         {
             var positionDTO = positionViewModel.ToPositionDTO();
             employeeService.UpdatePosition(positionDTO);
@@ -213,7 +220,7 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult ListBonusOrFines()
+        public ActionResult ListBonusOrFines()
         {
             var listBonusOrFines = employeeService.GetBonusOrFines().ToListBonusOrFineViewModel();
 
@@ -221,23 +228,29 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateBonusOrFine()
+        public ActionResult CreateBonusOrFine()
         {
             GetSelectListOfEmployees();
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateBonusOrFine(BonusOrFineViewModel bonusOrFineViewModel)
+        public ActionResult CreateBonusOrFine(BonusOrFineViewModel bonusOrFineViewModel)
         {
-            var bonusOrFineDTO = bonusOrFineViewModel.ToBonusOrFineDTO();
-            employeeService.AddBonusOrFine(bonusOrFineDTO);
+            if (ModelState.IsValid)
+            {
+                var bonusOrFineDTO = bonusOrFineViewModel.ToBonusOrFineDTO();
+                employeeService.AddBonusOrFine(bonusOrFineDTO);
 
-            return RedirectToAction("CreateBonusOrFine");
+                return RedirectToAction("CreateBonusOrFine");
+            }
+
+            GetSelectListOfEmployees();
+            return View(bonusOrFineViewModel);
         }
 
         [HttpGet]
-        public IActionResult DeleteBonusOrFine(int? id)
+        public ActionResult DeleteBonusOrFine(int? id)
         {
             try
             {
@@ -252,7 +265,7 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpPost, ActionName("DeleteBonusOrFine")]
-        public IActionResult DeleteBonusOrFineConfirmed(int? id)
+        public ActionResult DeleteBonusOrFineConfirmed(int? id)
         {
             if (id == null)
             {
@@ -271,7 +284,7 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditBonusOrFine(int? id)
+        public ActionResult EditBonusOrFine(int? id)
         {
             try
             {
@@ -288,7 +301,7 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditBonusOrFine(BonusOrFineViewModel bonusOrFineViewModel)
+        public ActionResult EditBonusOrFine(BonusOrFineViewModel bonusOrFineViewModel)
         {
             var bonusOrFineDTO = bonusOrFineViewModel.ToBonusOrFineDTO();
             employeeService.UpdateBonusOrFine(bonusOrFineDTO);
@@ -310,11 +323,13 @@ namespace FinalTaskShop.Controllers
                 return NotFound();
             }
 
+            GetEmployeeViewModel(bonusOrFineDTO.EmployeeId);
+
             return View(bonusOrFineDTO);
         }
 
         [HttpGet]
-        public IActionResult ListSickLeaves()
+        public ActionResult ListSickLeaves()
         {
             var listSickLeaves = employeeService.GetSickLeaves().ToListSickLeaveViewModel();
 
@@ -322,23 +337,29 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateSickLeave()
+        public ActionResult CreateSickLeave()
         {
             GetSelectListOfEmployees();
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateSickLeave(SickLeaveViewModel sickLeaveViewModel)
+        public ActionResult CreateSickLeave(SickLeaveViewModel sickLeaveViewModel)
         {
-            var sickLeaveDTO = sickLeaveViewModel.ToSickLeaveDTO();
-            employeeService.AddSickLeave(sickLeaveDTO);
+            if (ModelState.IsValid)
+            {
+                var sickLeaveDTO = sickLeaveViewModel.ToSickLeaveDTO();
+                employeeService.AddSickLeave(sickLeaveDTO);
 
-            return RedirectToAction("CreateSickLeave");
+                return RedirectToAction("CreateSickLeave");
+            }
+
+            GetSelectListOfEmployees();
+            return View(sickLeaveViewModel);
         }
 
         [HttpGet]
-        public IActionResult DeleteSickLeave(int? id)
+        public ActionResult DeleteSickLeave(int? id)
         {
             try
             {
@@ -353,7 +374,7 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpPost, ActionName("DeleteSickLeave")]
-        public IActionResult DeleteSickLeaveConfirmed(int? id)
+        public ActionResult DeleteSickLeaveConfirmed(int? id)
         {
             if (id == null)
             {
@@ -372,7 +393,7 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditSickLeave(int? id)
+        public ActionResult EditSickLeave(int? id)
         {
             try
             {
@@ -389,7 +410,7 @@ namespace FinalTaskShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditSickLeave(SickLeaveViewModel sickLeaveViewModel)
+        public ActionResult EditSickLeave(SickLeaveViewModel sickLeaveViewModel)
         {
             var sickLeaveDTO = sickLeaveViewModel.ToSickLeaveDTO();
             employeeService.UpdateSickLeave(sickLeaveDTO);
@@ -411,6 +432,8 @@ namespace FinalTaskShop.Controllers
                 return NotFound();
             }
 
+            GetEmployeeViewModel(sickLeaveDTO.EmployeeId);
+
             return View(sickLeaveDTO);
         }
 
@@ -427,7 +450,7 @@ namespace FinalTaskShop.Controllers
         public SelectList GetSelectListOfEmployees()
         {
             var employees = employeeService.GetEmployees().ToListEmployeeViewModels();
-            ViewBag.Employees = new SelectList(employees, "Id", "Title");
+            ViewBag.Employees = new SelectList(employees, "Id", "NSP");
 
             return ViewBag.Employees;
         }
@@ -440,6 +463,13 @@ namespace FinalTaskShop.Controllers
             ViewBag.Departaments = new SelectList(departaments, "Id", "Title");
 
             return ViewBag.Departaments;
+        }
+
+        [NonAction]
+        public EmployeeViewModel GetEmployeeViewModel(int id)
+        {
+            ViewBag.Employee = employeeService.GetEmployee(id).ToEmployeeViewModel();
+            return ViewBag.Employee;
         }
         
 

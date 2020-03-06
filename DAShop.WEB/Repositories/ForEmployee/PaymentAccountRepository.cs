@@ -31,6 +31,11 @@ namespace DAShop.WEB.Repositories.ForEmployee
             Save();
         }
 
+        public void Dispose()
+        {
+            db.Dispose();
+        }
+
         public IEnumerable<PaymentAccount> Find(Func<PaymentAccount, bool> predicate)
         {
             return db.PaymentAccounts.Where(predicate).ToList();

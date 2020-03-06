@@ -1,10 +1,11 @@
 ﻿using BLShop.WEB.Models.ForEmployee;
 using BLShop.WEB.ModelsDTO.ForEmployee;
+using System;
 using System.Collections.Generic;
 
 namespace BLShop.WEB.Interfaces
 {
-    public interface IEmployeeService
+    public interface IEmployeeService : IDisposable
     {
         void AddEmployee(EmployeeDTO employee);
         IEnumerable<EmployeeDTO> GetEmployees();
@@ -36,6 +37,5 @@ namespace BLShop.WEB.Interfaces
         void DeleteDepartament(int id);
         void UpdateDepartament(DepartamentDTO departament);
 
-        void Dispose();//?
     }
 }

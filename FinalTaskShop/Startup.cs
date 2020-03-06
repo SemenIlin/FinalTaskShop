@@ -49,14 +49,17 @@ namespace FinalTaskShop
             services.AddScoped<IRepository<PaymentAccount>, PaymentAccountRepository>();
 
             services.AddScoped<IRepository<Good>, GoodRepository>();
+            services.AddScoped<IRepository<ReportOfSale>, ReportOfSaleRepository>();
             services.AddScoped<IRepository<Repair>, RepairRepository>();
             services.AddScoped<IRepository<Transportation>, TransportationRepository>();
 
             services.AddScoped<IRepository<RentalSpace>, RentalSpaceRepository>();
 
             services.AddScoped<IEmployeeService,EmployeeService>();
+            services.AddScoped<IReportOfSaleService, ReportOfSaleService>();
             services.AddScoped<IGoodService, GoodService>();
             services.AddScoped<IRentalSpaceService, RentalSpaceService>();
+            services.AddScoped<IPaymentAccountService, PaymentAccountService>();
 
             services.AddMvc();
 

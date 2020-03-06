@@ -11,7 +11,7 @@ namespace DAShop.WEB.Configuration.ForEmployee
             builder.ToTable("Departaments");
 
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Title).IsRequired();
+            builder.Property(x => x.Title).IsRequired().HasMaxLength(50);
         }
     }
 }

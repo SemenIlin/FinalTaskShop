@@ -58,5 +58,10 @@ namespace DAShop.WEB.Repositories
         {
             db.SaveChanges();
         }
+
+        public void Dispose()
+        {
+           db.Dispose();
+        }
     }
 }

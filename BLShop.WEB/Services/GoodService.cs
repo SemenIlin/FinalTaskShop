@@ -14,6 +14,8 @@ namespace BLShop.WEB.Services
         private readonly IRepository<Transportation> transportations;
         private readonly IRepository<Repair> repairs;
 
+        private bool disposed = false;
+
         public GoodService(
             IRepository<Good> goods,
             IRepository<Transportation> transportations,
@@ -59,11 +61,6 @@ namespace BLShop.WEB.Services
         public IEnumerable<GoodDTO> GetGoods()
         {
             return goods.GetAll().ToListGoodDTO();
-        }
-
-        public void Dispose()
-        {
-            //Dispose();
         }
 
         public void DeleteGood(int id)
@@ -130,6 +127,25 @@ namespace BLShop.WEB.Services
         {
             var repair = repairDTO.ToRepair();
             repairs.Update(repair);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+               goods.Dispose();
+            }
+
+            disposed = true;
         }
     }
 }

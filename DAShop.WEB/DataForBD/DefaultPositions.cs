@@ -40,20 +40,21 @@ namespace DAShop.WEB.DataForBD
                 context.Departaments.AddRange(
                    new Departament
                    {
-                       IdName = "Бухгалтерский отдел"
+                       Title = "Бухгалтерский отдел"
                    },
                    new Departament
                    {
-                       IdName = "Отдел продаж"
+                       Title = "Отдел продаж"
                    },
                    new Departament
                    {
-                       IdName = "Отдел транспортировки"
+                       Title = "Отдел транспортировки"
                    },
                    new Departament
                    {
-                       IdName = "Финнсовый отдел"
+                       Title = "Финнсовый отдел"
                    });
+                context.SaveChanges();
             }
         }
     }

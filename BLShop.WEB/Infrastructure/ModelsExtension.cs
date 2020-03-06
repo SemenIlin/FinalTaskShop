@@ -1,4 +1,5 @@
-﻿using BLShop.WEB.Models.ForEmployee;
+﻿using BLShop.WEB.Interfaces;
+using BLShop.WEB.Models.ForEmployee;
 using BLShop.WEB.Models.ForRentalSpaces;
 using BLShop.WEB.ModelsDTO.ForEmployee;
 using BLShop.WEB.ModelsDTO.ForGood;
@@ -51,7 +52,7 @@ namespace BLShop.WEB.Infrastructure
             {
                 Id = transportation.Id,
                 TitleTransport = transportation.TitleTransport,
-                DataOfSend = transportation.DataOfSend,
+                DateOfSend = transportation.DateOfSend,
                 DateOfArrival = transportation.DateOfArrival,
                 CostOfDelivery = transportation.CostOfDelivery
             };
@@ -68,7 +69,7 @@ namespace BLShop.WEB.Infrastructure
             {
                 Id = transportationDTO.Id,
                 TitleTransport = transportationDTO.TitleTransport,
-                DataOfSend = transportationDTO.DataOfSend,
+                DateOfSend = transportationDTO.DateOfSend,
                 DateOfArrival = transportationDTO.DateOfArrival,
                 CostOfDelivery = transportationDTO.CostOfDelivery
             };
@@ -171,7 +172,8 @@ namespace BLShop.WEB.Infrastructure
                 Patronymic = employee.Patronymic,
                 Birthday = employee.Birthday,
                 PositionId = employee.PositionId,
-                DepartamentId = employee.DepartamentId
+                DepartamentId = employee.DepartamentId,
+                MinSalary = employee.Position.MinSalary
             };
         }
 
@@ -248,24 +250,7 @@ namespace BLShop.WEB.Infrastructure
                 MonetaryCompensation = sickLeaveDTO.MonetaryCompensation,
                 EmployeeId = sickLeaveDTO.EmployeeId
             };
-        }
-
-        public static PaymentAccountDTO ToPaymentAccountDTO(this PaymentAccount paymentAccount)
-        {
-            return new PaymentAccountDTO
-            {
-                Id = paymentAccount.Id,
-                Payday = paymentAccount.Payday,
-                Salary = paymentAccount.Salary,
-                Employee = paymentAccount.Employee,
-                EmployeeId = paymentAccount.EmployeeId
-            };
-        }
-
-        public static IEnumerable<PaymentAccountDTO> ToListPaymentAccountDTO(this IEnumerable<PaymentAccount> paymentAccounts)
-        {
-            return paymentAccounts.Select(paymentAccount => paymentAccount.ToPaymentAccountDTO());
-        }
+        }        
 
         public static PaymentAccount ToPaymentAccount(this PaymentAccountDTO paymentAccountDTO)
         {
@@ -274,7 +259,6 @@ namespace BLShop.WEB.Infrastructure
                 Id = paymentAccountDTO.Id,
                 Payday = paymentAccountDTO.Payday,
                 Salary = paymentAccountDTO.Salary,
-                Employee = paymentAccountDTO.Employee,
                 EmployeeId = paymentAccountDTO.EmployeeId
             };
         }
@@ -299,6 +283,31 @@ namespace BLShop.WEB.Infrastructure
             {
                 Id = departamentDTO.Id,
                 Title = departamentDTO.Title,
+            };
+        }
+
+        public static ReportOfSale ToReportOfSale(this ReportOfSaleDTO reportOfSaleDTO)
+        {
+            return new ReportOfSale
+            {
+                Id = reportOfSaleDTO.Id,
+                GoodId = reportOfSaleDTO.GoodId,
+                QuantityOfSales = reportOfSaleDTO.QuantityOfSales
+            };
+        }
+
+        public static IEnumerable<ReportOfSaleDTO> ToListReportOfSaleDTO(this IEnumerable<ReportOfSale> reportOfsales)
+        {
+            return reportOfsales.Select(reportOfsale => reportOfsale.ToReportOfSaleDTO());
+        }
+
+        public static ReportOfSaleDTO ToReportOfSaleDTO(this ReportOfSale reportOfSale)
+        {
+            return new ReportOfSaleDTO
+            {
+                Id = reportOfSale.Id,
+                GoodId = reportOfSale.GoodId,
+                QuantityOfSales = reportOfSale.QuantityOfSales
             };
         }
     }

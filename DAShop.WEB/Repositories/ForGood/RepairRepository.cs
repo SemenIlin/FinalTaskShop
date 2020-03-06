@@ -55,5 +55,10 @@ namespace DAShop.WEB.Repositories.ForGood
         {
             db.SaveChanges();
         }
+
+        public void Dispose()
+        {
+            db.Dispose();
+        }
     }
 }

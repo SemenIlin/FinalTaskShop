@@ -6,9 +6,16 @@
 		@Html.DisplayName("Должность")
 	</dt>
 	<dd>
-		@Html.DisplayFor(model => model.PositionId);
+		@Html.Label($"{ViewBag.Position}")
 	</dd>
 </dl>
+
+<p>
+	@Html.ActionLink("Список штрафов/премий", "ListBonusOrFines")
+</p>
+<p>
+	@Html.ActionLink("Список больничных", "ListSickLeaves")
+</p>
 
 <div>
 	@Html.ActionLink("К списку", "ListEmployees")

@@ -1,4 +1,5 @@
-﻿using DAShop.WEB.Models.ForEmployee;
+﻿using BLShop.WEB.Interfaces;
+using DAShop.WEB.Models.ForEmployee;
 using System;
 using System.Linq;
 
@@ -6,29 +7,26 @@ namespace BLShop.WEB.Infrastructure
 {
     public class SalaryWithTax
     {
-        private readonly Employee employee;
-        private readonly DateTime payday;
+        private readonly IEmployeeService employeeService;       
 
-        public SalaryWithTax(Employee employee, DateTime payday, decimal tax)
+        public SalaryWithTax(IEmployeeService employeeService)
         {
-            this.employee = employee;
-            this.payday = payday;
-            Tax = tax;
+            this.employeeService = employeeService;
         }
-
-        public decimal Tax { get; }
-
-        public decimal GetSalaryWithTax()
+        
+        public decimal GetSalaryWithTax(int id, DateTime payday, decimal tax)
         {
-            var bonusOrFineOfEmployee = employee.BonusOrFines.
-                Where(month => month.Date.Month == payday.Month).
+            var bonusOrFineOfEmployee = employeeService.GetBonusOrFines().
+                Where(month => month.Date.Month == payday.Month && month.EmployeeId == id).
                 Sum(money=>money.AmountOfBonusOrFine);
 
-            var sickLeaveOfEmployee = employee.SickLeaves.
-                Where(month => month.StartOfTheSickLeave.Month == payday.Month).
+            var sickLeaveOfEmployee = employeeService.GetSickLeaves().
+                Where(month => month.StartOfTheSickLeave.Month == payday.Month && month.EmployeeId == id).
                 Sum(money => money.MonetaryCompensation);
 
-            return (employee.Position.MinSalary * 1.37M + bonusOrFineOfEmployee + sickLeaveOfEmployee) * (1 - Tax/100) ;
+            var minSalary = employeeService.GetEmployee(id).MinSalary;
+
+            return (minSalary * 1.37M + bonusOrFineOfEmployee + sickLeaveOfEmployee) * (1 - tax/100) ;
         }
     }
 }

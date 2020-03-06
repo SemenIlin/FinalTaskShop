@@ -14,5 +14,7 @@ namespace BLShop.WEB.ModelsDTO.ForEmployee
         
         public int PositionId { get; set; }
         public int DepartamentId { get; set; }
+
+        public decimal MinSalary { get; set; }
     }
 }

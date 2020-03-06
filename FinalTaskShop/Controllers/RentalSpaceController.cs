@@ -28,10 +28,15 @@ namespace FinalTaskShop.Controllers
         [HttpPost]
         public ActionResult CreateRentalSpace(RentalSpaceViewModel rentalSpaceViewModel)
         {
-            var rentalSpaceDTO = rentalSpaceViewModel.ToRentalSpaceDTO();
-            rentalSpaceService.AddRentalSpace(rentalSpaceDTO);
+            if (ModelState.IsValid)
+            {
+                var rentalSpaceDTO = rentalSpaceViewModel.ToRentalSpaceDTO();
+                rentalSpaceService.AddRentalSpace(rentalSpaceDTO);
 
-            return RedirectToAction("CreateRentalSpace");
+                return RedirectToAction("CreateRentalSpace");
+            }
+
+            return View(rentalSpaceViewModel);
         }
         
         [HttpGet]

@@ -11,6 +11,7 @@ namespace BLShop.WEB.Services
     public class RentalSpaceService : IRentalSpaceService
     {
         private readonly IRepository<RentalSpace> rentalSpaces;
+        private bool disposed = false;
 
         public RentalSpaceService(IRepository<RentalSpace> rentalSpaces)
         {
@@ -48,6 +49,25 @@ namespace BLShop.WEB.Services
             var rentalSpace = rentalSpaceDTO.ToRentalSpace();
 
             rentalSpaces.Update(rentalSpace);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                rentalSpaces.Dispose();
+            }
+
+            disposed = true;
         }
     }
 }

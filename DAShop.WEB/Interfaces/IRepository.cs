@@ -14,5 +14,6 @@ namespace DAShop.WEB.Interfaces
         void Delete(int id);
 
         void Save();
+        void Dispose();
     }
 }

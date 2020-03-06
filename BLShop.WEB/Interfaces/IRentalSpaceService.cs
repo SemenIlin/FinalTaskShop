@@ -1,9 +1,10 @@
 ﻿using BLShop.WEB.Models.ForRentalSpaces;
+using System;
 using System.Collections.Generic;
 
 namespace BLShop.WEB.Interfaces
 {
-    public interface IRentalSpaceService
+    public interface IRentalSpaceService: IDisposable
     {
         void AddRentalSpace(RentalSpaceDTO rentalSpaceDTO);
         IEnumerable<RentalSpaceDTO> GetRentalSpaces();

@@ -1,5 +1,4 @@
-﻿using DAShop.WEB.Models.ForEmployee;
-using System;
+﻿using System;
 
 namespace BLShop.WEB.ModelsDTO.ForEmployee
 {
@@ -10,7 +9,11 @@ namespace BLShop.WEB.ModelsDTO.ForEmployee
         public DateTime Payday { get; set; }
         public decimal Salary { get; set; }
 
-        public Employee Employee { get; set; }
+        public string Name { get; set; }
+        public string SurName { get; set; }
+        public string Patronymic { get; set; }
+        public int PositionId { get; set; }
+
         public int EmployeeId { get; set; }
     }
 }

@@ -45,10 +45,17 @@ namespace FinalTaskShop.Controllers
         [HttpPost]
         public ActionResult GoodCreate(GoodViewModel goodViewModel)
         {
-            var goodDTO = goodViewModel.ToGoodDTO();
-            goodService.AddGood(goodDTO);
+            if (ModelState.IsValid)
+            {
+                var goodDTO = goodViewModel.ToGoodDTO();
+                goodService.AddGood(goodDTO);
 
-            return RedirectToAction("GoodCreate");
+                return RedirectToAction("GoodCreate");
+            }
+
+            GetSelectListOfCompanies();
+
+            return View(goodViewModel);
         }
 
         [HttpGet]
@@ -120,10 +127,15 @@ namespace FinalTaskShop.Controllers
         [HttpPost]
         public ActionResult CreateTransportation(TransportationViewModel transportationViewModel)
         {
-            var transportationDTO = transportationViewModel.ToTransportationDTO();
-            goodService.AddTransportation(transportationDTO);
+            if (ModelState.IsValid)
+            {
+                var transportationDTO = transportationViewModel.ToTransportationDTO();
+                goodService.AddTransportation(transportationDTO);
 
-            return RedirectToAction("CreateTransportation");
+                return RedirectToAction("CreateTransportation");
+            }
+
+            return View(transportationViewModel);
         }
 
         [HttpGet]
@@ -218,10 +230,17 @@ namespace FinalTaskShop.Controllers
         [HttpPost]
         public ActionResult CreateRepair(RepairViewModel repairViewModel)
         {
-            var repairDTO = repairViewModel.ToRepairDTO();
-            goodService.CreateRepair(repairDTO);
+            if (ModelState.IsValid)
+            {
+                var repairDTO = repairViewModel.ToRepairDTO();
+                goodService.CreateRepair(repairDTO);
 
-            return RedirectToAction("CreateRepair");
+                return RedirectToAction("CreateRepair");
+            }
+
+            GetSelectListOfCompanies();
+
+            return View(repairViewModel);
         }
 
         [HttpGet]

@@ -6,7 +6,7 @@
 		@Html.DisplayName("Сотрудник")
 	</dt>
 	<dd>
-		@Html.DisplayFor(model => model.EmployeeId);
+		@Html.Label($"{ViewBag.Employee.Name} {ViewBag.Employee.SurName} {ViewBag.Employee.Patronymic}");
 	</dd>
 </dl>
 

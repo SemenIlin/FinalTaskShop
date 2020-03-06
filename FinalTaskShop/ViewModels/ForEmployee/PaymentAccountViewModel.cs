@@ -10,6 +10,8 @@ namespace FinalTaskShop.ViewModels.ForEmployee
         public string Patronymic { get; set; }
 
         public int PositionId { get; set; }
+        public int EmployeeId { get; set; }
+
         public decimal Salary { get; set; }
         public DateTime Payday { get; set; }
     }

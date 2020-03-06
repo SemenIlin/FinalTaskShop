@@ -7,6 +7,7 @@ using BLShop.WEB.ModelsDTO.ForEmployee;
 using FinalTaskShop.ViewModels.ForEmployee;
 using BLShop.WEB.Models.ForEmployee;
 using System.Linq;
+using BLShop.WEB.Interfaces;
 
 namespace FinalTaskShop.Infrastructure
 {
@@ -51,7 +52,7 @@ namespace FinalTaskShop.Infrastructure
             {
                 Id = transportationViewModel.Id,
                 TitleTransport = transportationViewModel.TitleTransport,
-                DataOfSend = transportationViewModel.DataOfSend,
+                DateOfSend = transportationViewModel.DateOfSend,
                 DateOfArrival = transportationViewModel.DateOfArrival,
                 CostOfDelivery = transportationViewModel.CostOfDelivery
             };
@@ -68,7 +69,7 @@ namespace FinalTaskShop.Infrastructure
             {
                 Id = transportationDTO.Id,
                 TitleTransport = transportationDTO.TitleTransport,
-                DataOfSend = transportationDTO.DataOfSend,
+                DateOfSend = transportationDTO.DateOfSend,
                 DateOfArrival = transportationDTO.DateOfArrival,
                 CostOfDelivery = transportationDTO.CostOfDelivery
             };
@@ -170,7 +171,8 @@ namespace FinalTaskShop.Infrastructure
                 SurName = employeeViewModel.SurName,
                 Patronymic = employeeViewModel.Patronymic,
                 Birthday = employeeViewModel.Birthday,
-                PositionId = employeeViewModel.PositionId
+                PositionId = employeeViewModel.PositionId,
+                DepartamentId = employeeViewModel.DepartamentId
             };
         }
 
@@ -187,8 +189,10 @@ namespace FinalTaskShop.Infrastructure
                 Name = employeeDTO.Name,
                 SurName = employeeDTO.SurName,
                 Patronymic = employeeDTO.Patronymic,
+                NSP = employeeDTO.Name + employeeDTO.SurName + employeeDTO.Patronymic,
                 Birthday = employeeDTO.Birthday,
-                PositionId = employeeDTO.PositionId
+                PositionId = employeeDTO.PositionId,
+                DepartamentId = employeeDTO.DepartamentId
             };
         }
 
@@ -258,10 +262,11 @@ namespace FinalTaskShop.Infrastructure
                 Id = paymentAccountDTO.Id,
                 Payday = paymentAccountDTO.Payday,
                 Salary = paymentAccountDTO.Salary,
-                Name = paymentAccountDTO.Employee.Name,
-                SurName = paymentAccountDTO.Employee.SurName,
-                Patronymic = paymentAccountDTO.Employee.Patronymic,
-                PositionId = paymentAccountDTO.Employee.PositionId
+                Name = paymentAccountDTO.Name,
+                SurName = paymentAccountDTO.SurName,
+                Patronymic = paymentAccountDTO.Patronymic,
+                PositionId = paymentAccountDTO.PositionId,
+                EmployeeId = paymentAccountDTO.EmployeeId
             };
         }
 
@@ -285,6 +290,32 @@ namespace FinalTaskShop.Infrastructure
             {
                 Id = departamentDTO.Id,
                 Title = departamentDTO.Title,
+            };
+        }
+
+        public static ReportOfSaleViewModel ToReportOfSaleViewModel(this ReportOfSaleDTO reportOfSaleDTO, IGoodService goodService)
+        {
+            return new ReportOfSaleViewModel
+            {
+                Id = reportOfSaleDTO.Id,
+                GoodId = reportOfSaleDTO.GoodId,
+                QuantityOfSales = reportOfSaleDTO.QuantityOfSales,
+                TitleOfGood = goodService.GetGood(reportOfSaleDTO.GoodId).Title
+            };
+        }
+
+        public static IEnumerable<ReportOfSaleViewModel> ToListReportOfSaleViewModel(this IEnumerable<ReportOfSaleDTO> reportOfsaleDTOs, IGoodService goodService)
+        {
+            return reportOfsaleDTOs.Select(reportOfsaleDTO => reportOfsaleDTO.ToReportOfSaleViewModel(goodService));
+        }
+
+        public static ReportOfSaleDTO ToReportOfSaleDTO(this ReportOfSaleViewModel reportOfSaleViewModel)
+        {
+            return new ReportOfSaleDTO
+            {
+                Id = reportOfSaleViewModel.Id,
+                GoodId = reportOfSaleViewModel.GoodId,
+                QuantityOfSales = reportOfSaleViewModel.QuantityOfSales
             };
         }
     }

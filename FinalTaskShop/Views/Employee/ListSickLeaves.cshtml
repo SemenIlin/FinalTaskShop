@@ -7,7 +7,7 @@
 <h2>Больничные</h2>
 
 <p>
-	@Html.ActionLink("Добавить больничный", "CreateSickLeave")
+	@Html.ActionLink("Добавить больничный", "CreateSickLeave", "Employee")
 </p>
 <table class="table">
 	<tr>
@@ -38,9 +38,9 @@
 			</td>
 
 			<td>
-				@Html.ActionLink("Подробнее", "DetailsSickLeave", new { id = item.Id }) |
-				@Html.ActionLink("Редактировать", "EditSickLeave", new { id = item.Id }) |
-				@Html.ActionLink("Удалить", "DeleteSickLeave", new { id = item.Id })
+				@Html.ActionLink("Подробнее", "DetailsSickLeave", "Employee", new { id = item.Id }) |
+				@Html.ActionLink("Редактировать", "EditSickLeave", "Employee", new { id = item.Id }) |
+				@Html.ActionLink("Удалить", "DeleteSickLeave", "Employee", new { id = item.Id })
 			</td>
 		</tr>
 	}
@@ -48,6 +48,6 @@
 </table>
 
 <div>
-	@Html.ActionLink("Назад", "Index")
+	@Html.ActionLink("Назад", "Index", "Salary")
 </div>
 

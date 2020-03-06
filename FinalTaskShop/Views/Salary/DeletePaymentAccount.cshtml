@@ -1,0 +1,61 @@
+﻿@model FinalTaskShop.ViewModels.ForEmployee.PaymentAccountViewModel
+
+@{
+	ViewBag.Title = "DeletePaymentAccount";
+}
+
+<h3>Вы точно хотите удалить данные?</h3>
+<div>
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayName("Имя")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Name)
+		</dd>
+
+		<dt>
+			@Html.DisplayName("Фамилия")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.SurName)
+		</dd>
+
+		<dt>
+			@Html.DisplayName("Отчество")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Patronymic)
+		</dd>
+
+		<dt>
+			@Html.DisplayName("День зарплаты")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Payday)
+		</dd>
+
+		<dt>
+			@Html.DisplayName("Величина зарплаты")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Salary)
+		</dd>
+
+	</dl>
+
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+
+		<div class="form-actions no-color">
+			<input type="submit" value="Удалить" class="btn btn-default" /> |
+			@Html.ActionLink("Назад", "ListPaymentAccounts")
+		</div>
+	}
+</div>

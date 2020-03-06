@@ -17,6 +17,8 @@ namespace BLShop.WEB.Services
         private readonly IRepository<SickLeave> sickLeaves;
         private readonly IRepository<Departament> departaments;
 
+        private bool disposed = false;
+
         public EmployeeService(
             IRepository<Employee> employees,
             IRepository<BonusOrFine> bonusOfFines,
@@ -74,11 +76,6 @@ namespace BLShop.WEB.Services
         public IEnumerable<EmployeeDTO> GetEmployees()
         {
             return employees.GetAll().ToListEmployeeDTO();
-        }
-
-        public void Dispose()
-        {
-             // Dispose();
         }
 
         public void DeleteEmployee(int id)
@@ -180,6 +177,25 @@ namespace BLShop.WEB.Services
         public void UpdateDepartament(DepartamentDTO departament)
         {
             departaments.Update(departament.ToDepartament());          
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                 employees.Dispose();
+            }
+
+            disposed = true;
         }
     }
 }

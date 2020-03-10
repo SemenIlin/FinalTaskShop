@@ -1,0 +1,47 @@
+﻿@model IEnumerable<FinalTaskShop.ViewModels.ForGood.ReportOfSaleViewModel>
+
+@{
+	ViewBag.Title = "ListReportOfSales";
+}
+
+<h2>Список товаров</h2>
+
+<p>
+	@Html.ActionLink("Добавить отчет по товару", "CreateReportOfSale")
+</p>
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayName("Название")
+		</th>
+		
+		<th>
+			@Html.DisplayName("Количество")
+		</th>
+
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.TitleOfGood)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.QuantityOfSales)
+			</td>
+			
+			<td>
+				@Html.ActionLink("Редактировать", "EditReportOfSale", new { id = item.Id }) |
+				@Html.ActionLink("Удалить", "DeleteReportOfSale", new { id = item.Id })
+			</td>
+		</tr>
+	}
+
+</table>
+
+<div>
+	@Html.ActionLink("Назад", "Index")
+</div>
+

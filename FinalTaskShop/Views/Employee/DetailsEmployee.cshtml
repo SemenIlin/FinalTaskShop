@@ -1,0 +1,23 @@
+﻿@model FinalTaskShop.ViewModels.ForEmployee.EmployeeViewModel
+
+<hr />
+<dl class="dl-horizontal">
+	<dt>
+		@Html.DisplayName("Должность")
+	</dt>
+	<dd>
+		@Html.Label($"{ViewBag.Position}")
+	</dd>
+</dl>
+
+<p>
+	@Html.ActionLink("Список штрафов/премий", "ListBonusOrFines")
+</p>
+<p>
+	@Html.ActionLink("Список больничных", "ListSickLeaves")
+</p>
+
+<div>
+	@Html.ActionLink("К списку", "ListEmployees")
+</div>
+

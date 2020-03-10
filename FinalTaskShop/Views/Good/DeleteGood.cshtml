@@ -1,0 +1,60 @@
+﻿@model FinalTaskShop.ViewModels.ForGood.GoodViewModel
+
+@{
+	ViewBag.Title = "DeleteGood";
+}
+
+<h3>Вы точно хотите удалить этот товар?</h3>
+<div>
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayName("Название")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Title)
+		</dd>
+
+		<dt>
+			@Html.DisplayName("Цена покупки")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.PurchasePrice)
+		</dd>
+
+		<dt>
+			@Html.DisplayName("Цена продажи")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.SalePrice)
+		</dd>
+
+		<dt>
+			@Html.DisplayName("Количество")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Qyantity)
+		</dd>
+		<dt>
+			@Html.DisplayName("Доставщик")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.TransportationDTO.TitleTransport)
+			@*@Html.LabelFor(model => model.TransportationId, $"{ViewBag.Company}")*@
+		</dd>
+	</dl>
+
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+
+		<div class="form-actions no-color">
+			<input type="submit" value="Удалить" class="btn btn-default" /> |
+			@Html.ActionLink("Назад", "ListGoods")
+		</div>
+	}
+</div>

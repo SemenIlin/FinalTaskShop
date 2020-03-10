@@ -1,0 +1,62 @@
+﻿@model IEnumerable<FinalTaskShop.ViewModels.ForGood.GoodViewModel>
+
+@{
+	ViewBag.Title = "ListGoods";
+}
+
+<h2>Список товаров</h2>
+
+<p>
+	@Html.ActionLink("Добавить товар", "GoodCreate")
+</p>
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayName("Название")
+		</th>
+		<th>
+			@Html.DisplayName("Цена покупки")
+		</th>
+		<th>
+			@Html.DisplayName("Цена продажи")
+		</th>
+		<th>
+			@Html.DisplayName("Количество")
+		</th>
+		<th>
+			@Html.DisplayName("Кем доставится")
+		</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	 {
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Title)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.PurchasePrice)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.SalePrice)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Qyantity)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.TransportationDTO.TitleTransport)
+			</td>
+			<td>
+				@Html.ActionLink("Редактировать", "EditGood", new { id = item.Id }) |
+				@Html.ActionLink("Удалить", "DeleteGood", new { id = item.Id })
+			</td>
+		</tr>
+	 }
+
+</table>
+
+<div>
+	@Html.ActionLink("Назад", "Index")
+</div>
+

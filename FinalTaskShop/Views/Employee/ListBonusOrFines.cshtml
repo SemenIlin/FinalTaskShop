@@ -1,0 +1,53 @@
+﻿@model IEnumerable<FinalTaskShop.ViewModels.ForEmployee.BonusOrFineViewModel>
+
+@{
+	ViewBag.Title = "ListBonusOrFines";
+}
+
+<h2>Премий/штрафов работников</h2>
+
+<p>
+	@Html.ActionLink("Добавить премию/штраф", "CreateBonusOrFine", "Employee")
+</p>
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayName("Название")
+		</th>
+		<th>
+			@Html.DisplayName("Дата")
+		</th>
+		<th>
+			@Html.DisplayName("Величина")
+		</th>
+		
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Title)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Date)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.AmountOfBonusOrFine)
+			</td>
+			
+			<td>
+				@Html.ActionLink("Подробнее", "DetailsBonusOrFine", "Employee", new { id = item.Id }) |
+				@Html.ActionLink("Редактировать", "EditBonusOrFine", "Employee", new { id = item.Id }) |
+				@Html.ActionLink("Удалить", "DeleteBonusOrFine", "Employee", new { id = item.Id })
+			</td>
+		</tr>
+	}
+
+</table>
+
+<div>
+	@Html.ActionLink("Назад", "Index", "Salary")
+</div>
+

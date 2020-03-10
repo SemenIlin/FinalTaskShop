@@ -1,0 +1,45 @@
+﻿
+@model FinalTaskShop.ViewModels.ForGood.ReportOfSaleViewModel
+
+@{
+	ViewBag.Title = "CreateReportOfSale";
+}
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+	<h4>Товар</h4>
+	<hr />
+	<div class="form-horizontal">
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		
+		<div class="form-group">
+			@Html.LabelFor(model => model.GoodId , "Товар", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.GoodId , ViewBag.Goods as IEnumerable<SelectListItem>)
+				@Html.ValidationMessageFor(model => model.GoodId , "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.QuantityOfSales, "Количество проданных едениц товара", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.QuantityOfSales, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.QuantityOfSales, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Создать" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
+}
+
+<div>
+	@Html.ActionLink("Назад", "ListReportOfSales")
+</div>
+

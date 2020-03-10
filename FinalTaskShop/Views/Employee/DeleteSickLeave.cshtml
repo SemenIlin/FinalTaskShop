@@ -1,0 +1,51 @@
+﻿@model FinalTaskShop.ViewModels.ForEmployee.SickLeaveViewModel
+
+@{
+	ViewBag.Title = "DeleteSickLeave";
+}
+
+<h3>Вы точно хотите удалить запись?</h3>
+<div>
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayName("Начало болезни")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.StartOfTheSickLeave)
+		</dd>
+
+		<dt>
+			@Html.DisplayName("Окончание болезни")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.FinishOfTheSickLeave)
+		</dd>
+
+		<dt>
+			@Html.DisplayName("Денежная компенсация")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.MonetaryCompensation)
+		</dd>
+		<dt>
+			@Html.DisplayName("Сотрудник")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.EmployeeId)
+		</dd>
+	</dl>
+
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+
+		<div class="form-actions no-color">
+			<input type="submit" value="Удалить" class="btn btn-default" /> |
+			@Html.ActionLink("Назад", "ListSickLeaves")
+		</div>
+	}
+</div>
